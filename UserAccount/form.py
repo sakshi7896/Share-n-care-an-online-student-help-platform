@@ -1,7 +1,7 @@
 import re
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from django import forms ,TextInput
+from django import forms 
 
 
 class RegistrationForm(forms.Form):
@@ -15,13 +15,13 @@ class RegistrationForm(forms.Form):
             (JUNIOR, 'Junior'),
             (SENIOR, 'Senior'),
     )
-    username = forms.CharField(label='Username', max_length=30)
-    email = forms.EmailField(label='Email')
+    username = forms.CharField(label='Username', max_length=30,widget=forms.TextInput(attrs={'required': True,'placeholder':'User Name','name':'username'}))
+    email = forms.EmailField(label='Email',widget=forms.TextInput(attrs={'required': True,'placeholder':'Email Address'}))
     password = forms.CharField(label='Password',
                           widget=forms.PasswordInput())
     conf_password = forms.CharField(label='Password (Again)',
                         widget=forms.PasswordInput())
-    mobile = forms.CharField(label='MobileNumber', max_length=10)
+    mobile = forms.CharField(label='Mobile Number', max_length=10)
     
     year = forms.ChoiceField(choices=YEAR_IN_SCHOOL_CHOICES,widget=forms.Select())
     branch = forms.CharField(max_length=50)
@@ -30,7 +30,7 @@ class RegistrationForm(forms.Form):
     class Meta:
        # model=RegistrationForm
         fields = ('username','email','password','confirm password','mobile','year','branch','course')
-        widgets={'name': TextInput(attrs={'class':'form-control', 'placeholder':'name'})}
+        #widgets={'name': TextInput(attrs={'class':'form-control', 'placeholder':'name'})}
 
     
     def clean_conf_password(self):
