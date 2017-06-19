@@ -8,4 +8,4 @@ Mentee:
   Mitanshi Rastogi
   Sakshi Jain
   Sonali Bansal
-  Saransh
+  
