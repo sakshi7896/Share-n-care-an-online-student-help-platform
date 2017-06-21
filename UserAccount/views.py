@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
-#from django.contrib.auth.form import UserCreationForm
 from UserAccount.form import *
 from django.http import HttpResponse
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def home(request):
@@ -19,4 +19,18 @@ def register(request):
     form = RegistrationForm()
     #variables = RequestContext(request, {'form': form})
     return render(request,'UserAccount/register.html',{'form': form})
-    
+
+
+def login_user(request):
+    if request.method == "POST":
+        mail = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=mail, password=password)
+        if user is not None:
+            if user.is_active:
+                return HttpResponse("<hello>")
+            else:
+                return HttpResponse("<Bye>")
+        else:
+            return HttpResponse("No user")
+    return "Error"
