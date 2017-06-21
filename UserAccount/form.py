@@ -1,7 +1,8 @@
 import re
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from django import forms 
+from django import forms
+from .models import Profile
 
 
 class RegistrationForm(forms.Form):
@@ -22,17 +23,17 @@ class RegistrationForm(forms.Form):
     conf_password = forms.CharField(label='Password (Again)',
                         widget=forms.PasswordInput())
     mobile = forms.CharField(label='Mobile Number', max_length=10)
-    
+
     year = forms.ChoiceField(choices=YEAR_IN_SCHOOL_CHOICES,widget=forms.Select())
     branch = forms.CharField(max_length=50)
     course = forms.CharField(max_length=7)
-    
+
     class Meta:
        # model=RegistrationForm
         fields = ('username','email','password','confirm password','mobile','year','branch','course')
         #widgets={'name': TextInput(attrs={'class':'form-control', 'placeholder':'name'})}
 
-    
+
     def clean_conf_password(self):
         if 'password' in self.cleaned_data:
             password = self.cleaned_data['password']
@@ -40,7 +41,7 @@ class RegistrationForm(forms.Form):
             if password == conf_password:
                 return conf_password
         raise forms.ValidationError('Passwords do not match.')
-        
+
     def clean_username(self):
         username = self.cleaned_data['username']
         if not re.search(r'^\w+$', username):
@@ -50,22 +51,18 @@ class RegistrationForm(forms.Form):
         except ObjectDoesNotExist:
             return username
         raise forms.ValidationError('Username is already taken.')
-        
-    
-    
+
+
+
 
 
    # def clean_year(self):
-        
+
        # if 'year' in self.cleaned_data:
       #      year=self.cleaned_data['year']
-        #    for in 
-                                        
+        #    for in
 
-        
-        
-    
-    
-    
-      
-
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (username', 'password')
