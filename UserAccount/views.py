@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from UserAccount.form import *
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
-
+import smtplib
 from django.db import models
 
 from UserAccount.form import SignUpForm
@@ -10,6 +10,7 @@ from UserAccount.models import Profile
 from django.contrib.auth.models import User
 
 
+from django.core.mail import send_mail, BadHeaderError
 
 def login_user(request):
     if request.method == "POST":
@@ -25,7 +26,7 @@ def login_user(request):
             else:
                 return HttpResponse("Bye")
         else:
-            return render(request, 'UserAccount/login.html',{'error_message':"Invlid user details"})
+            return render(request, 'UserAccount/login.html',{'error_message':"Invalid user details"})
     return render(request, 'UserAccount/login.html')
 
 def register(request):
@@ -46,9 +47,16 @@ def register(request):
             p1.save()
             newUser=Profile(user=p1,phone_number=phone_number,year=year,branch=branch,course=course)
             newUser.save()
+            subject = 'Registration Successful- Share And Care'
 
-
-            
+            message = 'Greetings Sir, This is a test Email sent from the Django Project on Successful Registration.'
+            from_email = 'sonalibansal.igdtuw@gmail.com'
+            email_msg="Subject: {} \n\n{}".format(subject,message)
+            smtp = smtplib.SMTP('smtp.gmail.com',587)
+            smtp.starttls()
+            smtp.login('SENDERS EMAIL','SENDERS PASSWORD')
+            smtp.sendmail('SENDERS EMAIL',email,email_msg)
+            smtp.quit()
             return HttpResponse('<h2>registration successful</h2>')
         else:
             form = SignUpForm()
@@ -60,3 +68,5 @@ def register(request):
 
     form = SignUpForm()
     return render(request, 'UserAccount/register.html',{'form': form})
+
+
