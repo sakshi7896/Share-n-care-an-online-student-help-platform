@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^reset/done/$', password_reset_complete, name='password_reset_complete'),
     url(r'^register',views.register,name='register'),
     url(r'^login_user/$', views.login_user, name='login_user'),
-    
+    #url(r'^send_email/$', views.send_email, name='send_email'),
+
 ]
