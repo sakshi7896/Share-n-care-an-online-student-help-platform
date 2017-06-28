@@ -22,7 +22,7 @@ def login_user(request):
         if user is not None:
             #return HttpResponse("user is there")
             if user.is_active:
-                return HttpResponse("hello")
+                return HttpResponse("hello USER!")
             else:
                 return HttpResponse("Bye")
         else:
@@ -40,8 +40,8 @@ def register(request):
             year=request.POST.get('year')
             branch=request.POST.get('branch')
             course=request.POST.get('course')
-            
-            
+
+
             p1=User(username=username,email=email,password=password)
             p1.set_password(password)
             p1.save()
@@ -49,13 +49,13 @@ def register(request):
             newUser.save()
             subject = 'Registration Successful- Share And Care'
 
-            message = 'Greetings Sir, This is a test Email sent from the Django Project on Successful Registration.'
-            from_email = 'sonalibansal.igdtuw@gmail.com'
+            message = 'Greetings! This is a test Email sent from the Django Project on Successful Registration.'
+            from_email = 'sharencare@hotmail.com'
             email_msg="Subject: {} \n\n{}".format(subject,message)
-            smtp = smtplib.SMTP('smtp.gmail.com',587)
+            smtp = smtplib.SMTP('smtp.live.com',25)
             smtp.starttls()
-            smtp.login('SENDERS EMAIL','SENDERS PASSWORD')
-            smtp.sendmail('SENDERS EMAIL',email,email_msg)
+            smtp.login('senders email','senders password')
+            smtp.sendmail('senders email',email,email_msg)
             smtp.quit()
             return HttpResponse('<h2>registration successful</h2>')
         else:
@@ -68,5 +68,3 @@ def register(request):
 
     form = SignUpForm()
     return render(request, 'UserAccount/register.html',{'form': form})
-
-
