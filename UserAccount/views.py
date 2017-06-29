@@ -4,13 +4,18 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 import smtplib
 from django.db import models
-
+from django import template
+from django.template.loader import get_template
 from UserAccount.form import SignUpForm
 from UserAccount.models import Profile
 from django.contrib.auth.models import User
 
 
 from django.core.mail import send_mail, BadHeaderError
+
+
+def writetous(request):
+    return render(request, 'UserAccount/contactus.html')
 
 def login_user(request):
     if request.method == "POST":

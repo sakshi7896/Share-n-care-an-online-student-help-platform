@@ -5,24 +5,23 @@ from django.core.exceptions import ObjectDoesNotExist
 from django import forms
 from .models import Profile
 
-
 class SignUpForm(forms.ModelForm):
 
     username = forms.CharField(label='Username', max_length=30,widget=forms.TextInput(attrs={'required': True,'placeholder':'User Name','name':'username'}))
     email = forms.EmailField(label='Email',widget=forms.TextInput(attrs={'required': True,'placeholder':'Email Address'}))
-    
+
     password1= forms.CharField(label='Password',
                           widget=forms.PasswordInput())
     password2 = forms.CharField(label='Password (Again)',
                         widget=forms.PasswordInput())
-    
-   
+
+
     class Meta:
         model = Profile
         fields = ('username', 'email', 'password1', 'password2','phone_number','year','branch','course' )
-       
 
-        
+
+
     def clean_conf_password(self):
         if 'password' in self.cleaned_data:
             password = self.cleaned_data['password1']
@@ -30,7 +29,7 @@ class SignUpForm(forms.ModelForm):
             if password == conf_password:
                 return conf_password
         raise forms.ValidationError('Passwords do not match.')
-    
+
     def clean_username(self):
         username = self.cleaned_data['username']
         if not re.search(r'^\w+$', username):
@@ -41,7 +40,12 @@ class SignUpForm(forms.ModelForm):
             return username
         raise forms.ValidationError('Username is already taken.')
 
-   
+def clean_email(self):
+    email = self.cleaned_data['email']
+    if User.objects.filter(email=email).exists():
+        raise ValidationError("Email already exists")
+    return email
+
 
 
 class UserForm(forms.ModelForm):
