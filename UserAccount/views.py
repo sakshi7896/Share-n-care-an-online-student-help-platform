@@ -9,7 +9,7 @@ from django.template.loader import get_template
 from UserAccount.form import SignUpForm
 from UserAccount.models import Profile
 from django.contrib.auth.models import User
-
+from django.contrib.auth import login, logout
 
 from django.core.mail import send_mail, BadHeaderError
 
@@ -21,18 +21,21 @@ def login_user(request):
     if request.method == "POST":
         mail = request.POST['username']
         password = request.POST['password']
-        #return HttpResponse(password)
 
         user = authenticate(username=mail, password=password)
         if user is not None:
-            #return HttpResponse("user is there")
             if user.is_active:
+                login(request,user)
                 return HttpResponse("hello USER!")
             else:
-                return HttpResponse("Bye")
+                return HttpResponse("Inactive User")
         else:
-            return render(request, 'UserAccount/login.html',{'error_message':"Invalid user details"})
+            return render(request, 'UserAccount/login.html',{'error_message':"Invalid user Credentails"})
     return render(request, 'UserAccount/login.html')
+
+def logout(request):
+    logout(request)
+    return render(request, 'UserAccount/logout.html')
 
 def register(request):
     if request.method == 'POST':
