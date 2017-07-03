@@ -11,5 +11,9 @@ urlpatterns = [
     url(r'^login_user/$', views.login_user, name='login_user'),
     url(r'^write-to-us/$', views.writetous, name='writetous'),
     url(r'^logout/',logout,{'template_name': 'UserAccount/logout.html'}),
+    url(r'^search/',views.search_view, name='search_view'),
+    url(r'^search_book/',views.search_book, name='search_book'),
+
+
 
 ]

@@ -10,6 +10,8 @@ from UserAccount.form import SignUpForm
 from UserAccount.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
+from django.conf import settings
+from django.shortcuts import redirect
 
 from django.core.mail import send_mail, BadHeaderError
 
@@ -17,16 +19,18 @@ from django.core.mail import send_mail, BadHeaderError
 def writetous(request):
     return render(request, 'UserAccount/contactus.html')
 
+def search_view(request):
+    return render(request, 'UserAccount/search.html')
+
 def login_user(request):
     if request.method == "POST":
         mail = request.POST['username']
         password = request.POST['password']
-
         user = authenticate(username=mail, password=password)
         if user is not None:
             if user.is_active:
                 login(request,user)
-                return HttpResponse("hello USER!")
+                return render(request, 'UserAccount/search.html')
             else:
                 return HttpResponse("Inactive User")
         else:
@@ -76,3 +80,10 @@ def register(request):
 
     form = SignUpForm()
     return render(request, 'UserAccount/register.html',{'form': form})
+
+def search_book(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_REDIRECT_URL, request.path))
+    if request.method == "POST":
+        q = request.POST['query']
+        option = request.POST['option']
