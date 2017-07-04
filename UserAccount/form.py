@@ -53,3 +53,10 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+
+class BookPostForm(forms.ModelForm):
+    image=forms.ImageField()
+    class Meta:
+        model=Book
+fields=('book_title','subject','author','pub_year','pub_name','book_cond','image','negotiable')

@@ -87,3 +87,26 @@ def search_book(request):
     if request.method == "POST":
         q = request.POST['query']
         option = request.POST['option']
+
+def new_book_post(request):
+    if request.method=='POST':
+        form=BookPostForm(request.POST,request.FILES)
+        if form.is_valid():
+            book = Book()
+            book.user_book_id=request.session['id']
+            book.book_pic = form.cleaned_data['image']
+            book.book_title = request.POST["book_title"]
+            book.subject = request.POST["subject"]
+            book.author = request.POST["author"]
+            book.pub_year = request.POST["pub_year"]
+            book.pub_name = request.POST["pub_name"]
+            book.book_cond = request.POST["book_cond"]
+            book.negotiable = request.POST["negotiable"]
+            book.save()
+            return HttpResponse('New book post has been added')
+        else:
+            return HttpResponse(form.errors)
+    
+
+    BookForm =BookPostForm(None)
+    return render(request, 'UserAccount/bookform.html', {'form' :BookForm})
