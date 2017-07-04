@@ -1,6 +1,10 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
+import datetime
+YEAR_CHOICES = []
+for r in range(1980, (datetime.datetime.now().year+1)):
+    YEAR_CHOICES.append((r,r))
 
 # Create your models here.
 class Profile(models.Model):
@@ -24,11 +28,11 @@ class Profile(models.Model):
 
 
 class Book(models.Model):
-    user_book_id = models.ForeignKey(Profile)
+    user_book_id = models.ForeignKey(Profile,default=2)
     book_title = models.CharField(max_length=50)
     subject = models.CharField(max_length=50)
     author = models.CharField(max_length=50)
-    pub_year = models.IntegerField()
+    pub_year = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
     pub_name = models.CharField(max_length=50)
     NEW='New'
     OLD='Old'
@@ -39,10 +43,7 @@ class Book(models.Model):
     book_cond = models.CharField(max_length=3,
             choices=CONDITION,
         default=OLD,)
-    """image = ImageField(
-        max_length=255,
-        blank=True,
-    )"""
+    book_pic = models.ImageField(upload_to='BookImages',default='BookImages/default_pic.png')
     YES='Y'
     NO='N'
     NEGOTIABILITY =(
