@@ -29,7 +29,7 @@ def login_user(request):
         user = authenticate(username=mail, password=password)
         if user is not None:
             if user.is_active:
-                login(request,user)
+                login(user,request)
                 return render(request, 'UserAccount/search.html')
             else:
                 return HttpResponse("Inactive User")
