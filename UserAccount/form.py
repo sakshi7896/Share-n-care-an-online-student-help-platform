@@ -20,8 +20,6 @@ class SignUpForm(forms.ModelForm):
         model = Profile
         fields = ('username', 'email', 'password1', 'password2','phone_number','year','branch','course' )
 
-
-
     def clean_conf_password(self):
         if 'password' in self.cleaned_data:
             password = self.cleaned_data['password1']
