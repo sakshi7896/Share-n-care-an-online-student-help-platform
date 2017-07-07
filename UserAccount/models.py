@@ -24,7 +24,7 @@ class Profile(models.Model):
 
 
 class Book(models.Model):
-    user_book_id = models.ForeignKey(Profile)
+    user_book_id = models.ForeignKey(Profile,default=2)
     book_title = models.CharField(max_length=50)
     subject = models.CharField(max_length=50)
     author = models.CharField(max_length=50)

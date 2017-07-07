@@ -3,7 +3,7 @@ import re
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django import forms
-from .models import Profile
+from .models import Profile,Book
 
 class SignUpForm(forms.ModelForm):
 
@@ -59,4 +59,4 @@ class BookPostForm(forms.ModelForm):
     image=forms.ImageField()
     class Meta:
         model=Book
-fields=('book_title','subject','author','pub_year','pub_name','book_cond','image','negotiable')
+        fields=('book_title','subject','author','pub_year','pub_name','book_cond','image','negotiable')
