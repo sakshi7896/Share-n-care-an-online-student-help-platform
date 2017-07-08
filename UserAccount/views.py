@@ -15,7 +15,9 @@ from django.shortcuts import redirect
 
 from django.core.mail import send_mail, BadHeaderError
 
-
+def demo(request):
+    return render(request, 'coming soon/index.html')
+    
 def writetous(request):
     return render(request, 'UserAccount/contactus.html')
 
