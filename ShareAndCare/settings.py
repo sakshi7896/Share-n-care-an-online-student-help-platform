@@ -128,7 +128,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join('layout/static'),
+    os.path.join('static'),
 )
 
 # Simplified static file serving.
