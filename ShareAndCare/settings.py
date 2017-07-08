@@ -120,20 +120,10 @@ USE_TZ = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
 LOGIN_REDIRECT_URL ='/UserAccount/login.html'
-
 STATIC_URL = '/static/'
-
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-
-# Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join('staticfiles'),
+    os.path.join(BASE_DIR, "static"),
+    
 )
 
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
