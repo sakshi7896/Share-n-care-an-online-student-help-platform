@@ -62,21 +62,13 @@ def register(request):
             subject = 'Registration Successful- Share And Care'
 
             message = 'Greetings! This is a test Email sent from the Django Project on Successful Registration.'
-            from_email = 'sonalibansal.igdtuw@gmail.com'
-            email_msg="Subject: {} \n\n{}".format(subject,message)
-            smtp = smtplib.SMTP('smtp.gmail.com',587)
-            smtp.starttls()
-            smtp.login('SENDERS EMAIL','SENDERS PASSWORD')
-            smtp.sendmail('SENDERS EMAIL',email,email_msg)
-            smtp.quit()
-            '''from_email = 'sharencare@hotmail.com'
+            from_email = 'sharencare@hotmail.com'
             email_msg="Subject: {} \n\n{}".format(subject,message)
             smtp = smtplib.SMTP('smtp.live.com',25)
             smtp.starttls()
             smtp.login('senders email','senders password')
             smtp.sendmail('senders email',email,email_msg)
             smtp.quit()
-            '''
             return HttpResponse('<h2>registration successful</h2>')
         else:
             form = SignUpForm()
