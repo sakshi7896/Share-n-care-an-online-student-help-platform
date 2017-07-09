@@ -25,7 +25,7 @@ SECRET_KEY = 'se!&01f3d_c^hgnhauwjsp9v$uswll(ha1y*p0^14mg3%+yp#@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['share-and-care.herokuapp.com','.share-and-care.herokuapp.com']
 
 
 # Application definition
@@ -117,7 +117,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
 LOGIN_REDIRECT_URL ='/UserAccount/login.html'
+STATIC_URL = '/static/'
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join('UserAccount/static'),
+)
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+
 
