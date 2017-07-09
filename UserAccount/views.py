@@ -15,7 +15,9 @@ from django.shortcuts import redirect
 
 from django.core.mail import send_mail, BadHeaderError
 
-
+def index(request):
+    return render(request, 'index.html')
+    
 def writetous(request):
     return render(request, 'UserAccount/contactus.html')
 
@@ -30,11 +32,11 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(user,request)
-                return render(request, 'UserAccount/search.html')
+                return HttpResponse("hello user")
             else:
                 return HttpResponse("Inactive User")
         else:
-            return render(request, 'UserAccount/login.html',{'error_message':"Invalid user Credentails"})
+            return render(request, 'UserAccount/login.html',{'error_message':"Invalid user Credentials"})
     return render(request, 'UserAccount/login.html')
 
 def logout(request):
