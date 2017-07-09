@@ -14,7 +14,6 @@ urlpatterns = [
     url(r'^search/',views.search_view, name='search_view'),
     url(r'^search_book/',views.search_book, name='search_book'),
     url(r'^book_form/$', views.new_book_post, name='book_form'),
-    url(r'^demo/$',views.demo, name='demo'),
 
 
 

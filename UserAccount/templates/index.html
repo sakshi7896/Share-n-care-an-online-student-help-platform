@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
@@ -5,9 +7,9 @@
 
 <title>Share and Care - Coming Soon</title> 
 
-<link rel="stylesheet" href="style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="{% static "style.css" %}" type="text/css" media="screen">
 
-<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="{% static "js/jquery-1.7.min.js" %}"></script>
 <script type="text/javascript" src="js/jquery.countdown.js"></script>
 <script type="text/javascript" src="js/jquery.tipsy.js"></script>
 <script type="text/javascript" src="js/jquery.subscribe.js"></script>
@@ -19,7 +21,7 @@
 <body> 
 	<div id="wrapper">
 		<header>
-			<a class="logo" href="index.html">
+			<a class="logo" href="/">
 			<h3>Share & Care </h3>
 			<!-- <img src="images/logo.png" alt="logo" title="logo" /> -->
 			</a>
