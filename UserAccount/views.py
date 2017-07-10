@@ -89,6 +89,17 @@ def search_book(request):
     if request.method == "POST":
         q = request.POST['query']
         option = request.POST['option']
+        if(option=='Name'):
+            try:
+                queryset = Book.objects.filter(book_title__icontains=q)
+            except Book.DoesNotExist:
+                return HttpResponse("No results found")
+            context = {
+            'queryset':queryset,
+            'q':q,
+            }
+            return render(request, 'UserAccount/search_results.html', context)
+            
 
 def new_book_post(request):
     if request.method=='POST':

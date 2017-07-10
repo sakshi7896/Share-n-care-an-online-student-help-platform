@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block head %}
+  <title> Search Results- {{ q }}</title>
+  {% endblock %}
+  {%block body %}
+  <br> <br> <br>
+  <h1>Search Results for query "{{q}}"</h1>
+    <ul>
+  {% for book in queryset%}
+  
+  <li> Book title : {{book.book_title}} <br>
+  Subject: {{book.subject}} </li>
+  {% endfor %}
+</ul>
+{% endblock %}
+
