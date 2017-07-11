@@ -17,6 +17,9 @@ from django.core.mail import send_mail, BadHeaderError
 
 def index(request):
     return render(request, 'index.html')
+
+def home(request):
+    return render(request, 'UserAccount/home.html')
     
 def writetous(request):
     return render(request, 'UserAccount/contactus.html')
@@ -92,6 +95,16 @@ def search_book(request):
         if(option=='Name'):
             try:
                 queryset = Book.objects.filter(book_title__icontains=q)
+            except Book.DoesNotExist:
+                return HttpResponse("No results found")
+            context = {
+            'queryset':queryset,
+            'q':q,
+            }
+            return render(request, 'UserAccount/search_results.html', context)
+        elif(option=='Subject'):
+            try:
+                queryset=Book.objects.filter(subject__icontains=q)
             except Book.DoesNotExist:
                 return HttpResponse("No results found")
             context = {
