@@ -20,7 +20,7 @@ def index(request):
 
 def home(request):
     return render(request, 'UserAccount/home.html')
-    
+
 def writetous(request):
     return render(request, 'UserAccount/contactus.html')
 
