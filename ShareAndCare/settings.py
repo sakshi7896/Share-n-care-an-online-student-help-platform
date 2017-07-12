@@ -25,7 +25,8 @@ SECRET_KEY = 'se!&01f3d_c^hgnhauwjsp9v$uswll(ha1y*p0^14mg3%+yp#@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = ['share-and-care.herokuapp.com','.share-and-care.herokuapp.com']
+ALLOWED_HOSTS = ['*']
+#'share-and-care.herokuapp.com','.share-and-care.herokuapp.com'
 
 
 
