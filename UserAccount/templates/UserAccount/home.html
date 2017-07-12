@@ -1,0 +1,147 @@
+
+<html>
+
+<head>
+  <title> ShareAndCare</title>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+  
+
+    <!-- CSS   links-->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+
+    <!-- js links-->
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <style>
+
+
+        body {
+    background:    #f1948a 
+ ;
+         
+            
+  }
+  .container {
+    margin: 80px auto;
+margin-top: 100px; 
+margin-left: 20px;
+
+  }
+
+
+.navbar
+        {
+            color:white  ;
+            background:    #c0392b
+
+;
+        }
+    </style>
+
+<script>
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+    });
+</script>
+
+
+</head>
+  <body>
+  
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+
+    
+       <div class="col-md-5">
+         <form class="navbar-form navbar-left" role="search" action="{% url 'search_book'%}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" name="query">
+            <select class="form-control" name="option">
+          <option value="Name">By Name</option>
+          <option value="Subject">By Subject</option>
+        </select> 
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        
+        </div>
+    
+       
+
+    <div class="col-md-2 col-sm-6"  >
+        <h2 style="text-align:left;font-size:16px;">
+           <b>Share and Care</b>  
+        </h2>
+      </div>
+  		<div class="container-fluid">
+  			<button type="button" class="navbar-toggle"
+  				data-toggle="collapse"
+  				data-target=".navbar-collapse">
+				<span class="sr-only">Toggle variation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+  			</button>
+
+  			<div class="navbar-collapse collapse">
+  				<ul class="nav navbar-nav navbar-right">
+                    <li class="active" ><a href="home_final.html"><i class="fa fa-home" aria-hidden="true"></i> Home </a></li>
+          					<li class="" ><a href=""><i class="fa fa-book" aria-hidden="true"></i>
+                   Sell a Book 
+                    </a></li>
+                    <li class="" ><a href=""><i class="fa fa-book" aria-hidden="true"></i>
+                   Donate a Book 
+                    </a></li>
+
+                  
+
+
+
+  					<li class="" ><a href=""><i class="fa fa-users" aria-hidden="true"></i> Logout</a></li>
+            <li class="dropdown">
+            <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+             More
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+              <li><a href="{% url 'register'%}"><i class="fa fa-user fa-fw"></i><i class="icon-chevron-sign-up"></i>Sign Up</a></li>
+              <li><a href="{% url 'login_user'%}"><i class="fa fa-key" aria-hidden="true"></i> 
+              Log in</a></li>
+               <li class="" ><a href="contactus.html"><i class="fa fa-envelope" aria-hidden="true"></i> Contact us</a></li> 
+            </ul>
+          </div>
+          </li>
+
+          
+  				</ul>
+  			</div>
+
+  		 </div>
+
+	</nav>
+  <div class="col-md-4 col-sm-6"  >
+  </div>
+  <div class="col-md-5 col-sm-6"  >
+<div class="container">
+<a href="{% url 'book_form'%}">
+<button class="btn" type="submit" href="">Book form</button>
+</a>
+
+</div>
+</div>
+  <body>
+<html>

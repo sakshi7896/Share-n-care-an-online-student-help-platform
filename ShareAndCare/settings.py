@@ -28,6 +28,7 @@ DEBUG = True
 #ALLOWED_HOSTS = ['share-and-care.herokuapp.com','.share-and-care.herokuapp.com']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
