@@ -30,6 +30,7 @@ class Book(models.Model):
     author = models.CharField(max_length=50)
     pub_year = models.IntegerField()
     pub_name = models.CharField(max_length=50)
+    price=models.CharField(max_length=5,null=True)
     NEW='New'
     OLD='Old'
     CONDITION =(
@@ -43,12 +44,20 @@ class Book(models.Model):
         max_length=255,
         blank=True,
     )"""
+
     YES='Y'
     NO='N'
     NEGOTIABILITY =(
         (YES, 'Yes'),
         (NO, 'No'),
     )
+    SELL='S'
+    DONATE='D'
+    Type=(
+        (SELL,'S'),
+        (DONATE,'D'),
+        )
+    b_type=models.CharField(max_length=1,choices=Type,default=SELL)
     negotiable = models.CharField(max_length=3,
             choices=NEGOTIABILITY,
         default=NO,)
