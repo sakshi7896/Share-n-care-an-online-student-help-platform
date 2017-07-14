@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
+import datetime
 
 # Create your models here.
 class Profile(models.Model):
@@ -24,11 +25,16 @@ class Profile(models.Model):
 
 
 class Book(models.Model):
-    user_book_id = models.ForeignKey(Profile,default=2)
+    YEAR_CHOICES = []
+    for r in range(1980, (datetime.datetime.now().year+1)):
+        YEAR_CHOICES.append((r,r))
+    user_book_id = models.IntegerField(null=False)
     book_title = models.CharField(max_length=50)
     subject = models.CharField(max_length=50)
     author = models.CharField(max_length=50)
-    pub_year = models.IntegerField()
+    
+
+    pub_year = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
     pub_name = models.CharField(max_length=50)
     price=models.CharField(max_length=5,null=True)
     NEW='New'

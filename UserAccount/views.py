@@ -9,11 +9,12 @@ from django.template.loader import get_template
 from UserAccount.form import SignUpForm
 from UserAccount.models import Profile
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout
+from django.contrib.auth import logout
 from django.conf import settings
 from django.shortcuts import redirect
 
 from django.core.mail import send_mail, BadHeaderError
+
 
 def index(request):
     return render(request, 'index.html')
@@ -34,8 +35,11 @@ def login_user(request):
         user = authenticate(username=mail, password=password)
         if user is not None:
             if user.is_active:
-                login(user,request)
-                return HttpResponse("hello user")
+                login(request,user)
+                print user.id
+                request.session['id'] = user.id
+                print request.session['id']
+                return render(request, 'UserAccount/home.html')
             else:
                 return HttpResponse("Inactive User")
         else:
@@ -44,7 +48,8 @@ def login_user(request):
 
 def logout(request):
     logout(request)
-    return render(request, 'UserAccount/logout.html')
+    return render(request, 'UserAccount/login.html')
+
 
 def register(request):
     if request.method == 'POST':
@@ -119,6 +124,7 @@ def new_book_post(request):
         form=BookPostForm(request.POST,request.FILES)
         if form.is_valid():
             book = Book()
+            print request.session['id']
             book.user_book_id=request.session['id']
             book.book_pic = form.cleaned_data['image']
             book.book_title = request.POST["book_title"]
@@ -128,6 +134,8 @@ def new_book_post(request):
             book.pub_name = request.POST["pub_name"]
             book.book_cond = request.POST["book_cond"]
             book.negotiable = request.POST["negotiable"]
+            book.price = request.POST["price"]
+            book.b_type = request.POST["b_type"]
             book.save()
             return HttpResponse('New book post has been added')
         else:
