@@ -112,3 +112,25 @@ def new_book_post(request):
 
     BookForm =BookPostForm(None)
     return render(request, 'UserAccount/bookform.html', {'form' :BookForm})
+	
+def donate_book_post(request):
+    if request.method=='POST':
+        form=BookDonateForm(request.POST,request.FILES)
+        if form.is_valid():
+            book = DonateBook()
+            book.user_book_id=request.session['id']
+            book.book_pic = form.cleaned_data['image']
+            book.book_title = request.POST["book_title"]
+            book.subject = request.POST["subject"]
+            book.author = request.POST["author"]
+            book.pub_year = request.POST["pub_year"]
+            book.pub_name = request.POST["pub_name"]
+            book.book_cond = request.POST["book_cond"]
+            book.save()
+            return HttpResponse('New book for donation has been added')
+        else:
+            return HttpResponse(form.errors)
+    
+
+    DonateBookForm =BookDonateForm(None)
+    return render(request, 'UserAccount/donatebookform.html', {'form' :DonateBookForm})

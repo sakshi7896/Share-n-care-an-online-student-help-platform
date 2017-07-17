@@ -54,7 +54,26 @@ class Book(models.Model):
         default=NO,)
 
 
-
-
+class DonateBook(models.Model):
+    user_book_id = models.ForeignKey(Profile,default=2)
+    book_title = models.CharField(max_length=50)
+    subject = models.CharField(max_length=50)
+    author = models.CharField(max_length=50)
+    pub_year = models.IntegerField()
+    pub_name = models.CharField(max_length=50)
+    NEW='New'
+    OLD='Old'
+    CONDITION =(
+        (NEW, 'New'),
+        (OLD, 'Old'),
+    )
+    book_cond = models.CharField(max_length=3,
+            choices=CONDITION,
+        default=OLD,)
+    """image = ImageField(
+        max_length=255,
+        blank=True,
+    )"""
+    
 
 
