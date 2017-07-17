@@ -1,0 +1,88 @@
+
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block head %}
+
+<title>Share and care</title>
+<link rel="stylesheet" href="{% static 'UserAccount/navbar.css' %}">
+<script>
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+    });
+</script>
+
+
+{% endblock %}
+{% block body %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+
+    
+   <div class="col-md-5">
+     <form class="navbar-form navbar-left" role="search" action="{% url 'search_book'%}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search" name="query">
+        <select class="form-control" name="option">
+	      <option value="Name">By Name</option>
+	      <option value="Subject">By Subject</option>
+	    </select> 
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    
+    </div>
+    
+       
+
+    <div class="col-md-2 col-sm-6"  >
+        <h2 style="text-align:left;font-size:16px;">
+           <b>Share and Care</b>  
+        </h2>
+     </div>
+
+	<div class="container-fluid">
+		<button type="button" class="navbar-toggle"
+				data-toggle="collapse"
+				data-target=".navbar-collapse">
+		<span class="sr-only">Toggle variation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		</button>
+
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+	            <li class="active" id="home" ><a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> Home </a></li>
+	  			<li class="" id="sell"><a href="{% url 'book_form' %}"><i class="fa fa-book" aria-hidden="true"></i>Sell a Book  </a></li>
+		        <li class="" id="donate" ><a href=""><i class="fa fa-book" aria-hidden="true"></i> Donate a Book </a></li>
+			    <li class="" id="logout"><a href="{% url 'logout'%}"><i class="fa fa-users" aria-hidden="true"></i> Logout</a></li>
+		        <li class="dropdown">
+		        <div class="dropdown">
+			        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			         More
+			          <span class="caret"></span>
+			        </button>
+
+			        <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+			          <li><a href="{% url 'register'%}"><i class="fa fa-user fa-fw"></i><i class="icon-chevron-sign-up"></i>Sign Up
+			          </a></li>
+			          <li><a href="{% url 'login_user'%}"><i class="fa fa-key" aria-hidden="true"></i> 
+			          Log in
+			          </a></li>
+			          <li class="" id="contact"><a href="{% url 'writetous'%}"><i class="fa fa-envelope" aria-hidden="true"></i> 
+			          Contact us
+			           </a></li>
+			        </ul>
+
+			    </div>
+			    </li>
+
+      
+			</ul>
+		</div>
+
+  	</div>
+
+</nav>
+
+{% endblock %}

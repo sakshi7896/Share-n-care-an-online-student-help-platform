@@ -1,0 +1,43 @@
+{% extends 'UserAccount/navbar.html' %}
+{% block head %}
+
+<title>Book Form</title>
+{{block.super}}
+
+<script type="text/javascript">
+window.onload=function()
+{
+document.getElementById("home").setAttribute("class","");
+
+}
+
+</script>
+{% endblock %}
+{% block body %}
+{{block.super}}
+
+<div class="col-md-3 col-sm-6"  >
+  </div>
+ <div class="col-md-6 col-sm-6"  >
+ 
+
+ <br/> <br/> <br/>
+   <h1>Search Results for query "{{q}}"</h1>
+   {% for book in queryset%}
+<div class="panel panel-info">
+  <div class="panel-heading">{{book.book_title}}</div>
+  <a href="#" class="thumbnail">
+      <img src="{{book.book_pic.url}}" alt="...">
+    </a>
+  <div class="panel-body">
+    {{book.subject}}
+  </div>
+</div>
+  {% endfor %}
+ </div> 
+
+  
+ 
+  
+{% endblock %}
+
