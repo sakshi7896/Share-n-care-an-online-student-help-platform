@@ -54,7 +54,7 @@
 			<ul class="nav navbar-nav navbar-right">
 	            <li class="active" id="home" ><a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> Home </a></li>
 	  			<li class="" id="sell"><a href="{% url 'book_form' %}"><i class="fa fa-book" aria-hidden="true"></i>Sell a Book  </a></li>
-		        <li class="" id="donate" ><a href=""><i class="fa fa-book" aria-hidden="true"></i> Donate a Book </a></li>
+		        <li class="" id="donate" ><a href="{% url 'donate_book_form' %}"><i class="fa fa-book" aria-hidden="true"></i> Donate a Book </a></li>
 			    <li class="" id="logout"><a href="{% url 'logout'%}"><i class="fa fa-users" aria-hidden="true"></i> Logout</a></li>
 		        <li class="dropdown">
 		        <div class="dropdown">

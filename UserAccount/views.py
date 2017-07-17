@@ -9,15 +9,19 @@ from django.template.loader import get_template
 from UserAccount.form import SignUpForm
 from UserAccount.models import Profile
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout
+from django.contrib.auth import logout
 from django.conf import settings
 from django.shortcuts import redirect
 
 from django.core.mail import send_mail, BadHeaderError
 
+
 def index(request):
     return render(request, 'index.html')
-    
+
+def home(request):
+    return render(request, 'UserAccount/home.html')
+
 def writetous(request):
     return render(request, 'UserAccount/contactus.html')
 
@@ -31,17 +35,16 @@ def login_user(request):
         user = authenticate(username=mail, password=password)
         if user is not None:
             if user.is_active:
-                login(user,request)
-                return HttpResponse("hello user")
+                login(request,user)
+                print user.id
+                request.session['id'] = user.id
+                print request.session['id']
+                return render(request, 'UserAccount/home.html')
             else:
                 return HttpResponse("Inactive User")
         else:
             return render(request, 'UserAccount/login.html',{'error_message':"Invalid user Credentials"})
     return render(request, 'UserAccount/login.html')
-
-def logout(request):
-    logout(request)
-    return render(request, 'UserAccount/logout.html')
 
 def register(request):
     if request.method == 'POST':
@@ -85,16 +88,38 @@ def register(request):
 
 def search_book(request):
     if not request.user.is_authenticated:
-        return redirect('%s?next=%s' % (settings.LOGIN_REDIRECT_URL, request.path))
+        return render(request, 'UserAccount/login.html')
     if request.method == "POST":
         q = request.POST['query']
         option = request.POST['option']
+        if(option=='Name'):
+            try:
+                queryset = Book.objects.filter(book_title__icontains=q)
+            except Book.DoesNotExist:
+                return HttpResponse("No results found")
+            context = {
+            'queryset':queryset,
+            'q':q,
+            }
+            return render(request, 'UserAccount/search_results.html', context)
+        elif(option=='Subject'):
+            try:
+                queryset=Book.objects.filter(subject__icontains=q)
+            except Book.DoesNotExist:
+                return HttpResponse("No results found")
+            context = {
+            'queryset':queryset,
+            'q':q,
+            }
+            return render(request, 'UserAccount/search_results.html', context)
+            
 
 def new_book_post(request):
     if request.method=='POST':
         form=BookPostForm(request.POST,request.FILES)
         if form.is_valid():
             book = Book()
+            print request.session['id']
             book.user_book_id=request.session['id']
             book.book_pic = form.cleaned_data['image']
             book.book_title = request.POST["book_title"]
@@ -104,6 +129,8 @@ def new_book_post(request):
             book.pub_name = request.POST["pub_name"]
             book.book_cond = request.POST["book_cond"]
             book.negotiable = request.POST["negotiable"]
+            book.price = request.POST["price"]
+            book.b_type = request.POST["b_type"]
             book.save()
             return HttpResponse('New book post has been added')
         else:
@@ -117,7 +144,9 @@ def donate_book_post(request):
     if request.method=='POST':
         form=BookDonateForm(request.POST,request.FILES)
         if form.is_valid():
-            book = DonateBook()
+            book = Book()
+            print "Session id : "
+            print request.session['id']
             book.user_book_id=request.session['id']
             book.book_pic = form.cleaned_data['image']
             book.book_title = request.POST["book_title"]
@@ -126,11 +155,14 @@ def donate_book_post(request):
             book.pub_year = request.POST["pub_year"]
             book.pub_name = request.POST["pub_name"]
             book.book_cond = request.POST["book_cond"]
+            book.b_type = 'D'
+            book.negotiable = 'N'
+            book.price = 0.0
             book.save()
             return HttpResponse('New book for donation has been added')
         else:
             return HttpResponse(form.errors)
     
 
-    DonateBookForm =BookDonateForm(None)
-    return render(request, 'UserAccount/donatebookform.html', {'form' :DonateBookForm})
+    donateBookForm =BookDonateForm(None)
+    return render(request, 'UserAccount/donatebookform.html', {'form' :donateBookForm})
