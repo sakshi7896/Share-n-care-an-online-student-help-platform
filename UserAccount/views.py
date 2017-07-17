@@ -46,11 +46,6 @@ def login_user(request):
             return render(request, 'UserAccount/login.html',{'error_message':"Invalid user Credentials"})
     return render(request, 'UserAccount/login.html')
 
-def logout(request):
-    logout(request)
-    return render(request, 'UserAccount/login.html')
-
-
 def register(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST or None)
@@ -93,7 +88,7 @@ def register(request):
 
 def search_book(request):
     if not request.user.is_authenticated:
-        return redirect('%s?next=%s' % (settings.LOGIN_REDIRECT_URL, request.path))
+        return render(request, 'UserAccount/login.html')
     if request.method == "POST":
         q = request.POST['query']
         option = request.POST['option']
