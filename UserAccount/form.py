@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django import forms
 from .models import Profile,Book
 
+
 class SignUpForm(forms.ModelForm):
 
     username = forms.CharField(label='Username', max_length=30,widget=forms.TextInput(attrs={'required': True,'placeholder':'User Name','name':'username'}))
@@ -57,4 +58,11 @@ class BookPostForm(forms.ModelForm):
     image=forms.ImageField()
     class Meta:
         model=Book
-        fields=('book_title','subject','author','pub_year','pub_name','book_cond','image','negotiable')
+        fields=('book_title','subject','author','pub_year','pub_name','price','book_cond','image','b_type','negotiable')
+		
+class BookDonateForm(forms.ModelForm):
+    image=forms.ImageField()
+    class Meta:
+        model=Book
+        fields=('book_title','subject','author','pub_year','pub_name','book_cond','image')
+
