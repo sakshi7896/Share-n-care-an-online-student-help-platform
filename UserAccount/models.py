@@ -46,11 +46,8 @@ class Book(models.Model):
     book_cond = models.CharField(max_length=3,
             choices=CONDITION,
         default=OLD,)
-    """image = ImageField(
-        max_length=255,
-        blank=True,
-    )"""
-
+    
+    book_pic=models.ImageField(upload_to='BookImages',null=False,blank=True)
     YES='Y'
     NO='N'
     NEGOTIABILITY =(
