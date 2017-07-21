@@ -184,3 +184,11 @@ def change_password(request):
             "THIS IS INCOMPLETE"
             """
     return render(request, 'UserAccount/change_password.html')
+
+def view_profile(request):
+    user = User.objects.get(id=request.session['id'])
+    userprofile = Profile.objects.get(user=user)
+    context = {
+    'userprofile':userprofile,
+            }
+    return render(request, 'UserAccount/view_profile.html', context)

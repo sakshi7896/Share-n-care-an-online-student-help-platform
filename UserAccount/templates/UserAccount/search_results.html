@@ -1,7 +1,7 @@
 {% extends 'UserAccount/navbar.html' %}
 {% block head %}
 
-<title>Book Form</title>
+<title>Search Results -{{q}}</title>
 {{block.super}}
 
 <script type="text/javascript">
@@ -26,9 +26,7 @@ document.getElementById("home").setAttribute("class","");
    {% for book in queryset%}
 <div class="panel panel-info">
   <div class="panel-heading">{{book.book_title}}</div>
-  <a href="#" class="thumbnail">
-      <img src="{{book.book_pic.url}}" alt="...">
-    </a>
+      <img src="{{book.book_pic.url}}" alt="Book Picture" height="250" width="200"/>
   <div class="panel-body">
     {{book.subject}}
   </div>

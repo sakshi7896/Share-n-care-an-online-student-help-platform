@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 import datetime
-
+from PIL import Image
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -47,7 +47,7 @@ class Book(models.Model):
             choices=CONDITION,
         default=OLD,)
     
-    book_pic=models.ImageField(upload_to='BookImages',null=False,blank=True)
+    book_pic=models.ImageField(upload_to='BookImages',blank=True)
     YES='Y'
     NO='N'
     NEGOTIABILITY =(
