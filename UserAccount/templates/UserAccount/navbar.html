@@ -2,6 +2,41 @@
 {% extends 'base.html'%}
 {% load staticfiles %}
 {% block head %}
+ <style>
+ #footer
+{
+	background-color: #00547A;
+	padding: 20px 0px;
+}
+.footer-copyright {
+    color: #fff;
+    line-height: 32px;
+    text-align: left;
+}
+.footer-social
+{
+	float: right;
+}
+.footer-social a {
+    font-size: 18px;
+    color: #fff;
+}
+.footer-social a :hover{
+color: #e5e5f2;
+}
+.btn-link{
+    color: #fff;
+
+}
+.btn-link:hover{
+  color: #e5e5f2;
+
+}
+.modal{
+  color: #000;
+}
+
+</style>
 
 <title>Share and care</title>
 <link rel="stylesheet" href="{% static 'UserAccount/navbar.css' %}">
@@ -72,6 +107,9 @@
 			          <li class="" id="contact"><a href="{% url 'writetous'%}"><i class="fa fa-envelope" aria-hidden="true"></i> 
 			          Contact us
 			           </a></li>
+					   <li class="" id="changepassword"><a href="{% url 'change_password'%}"><i class="fa fa-key" aria-hidden="true"></i> 
+			          Change Password
+			           </a></li>
 			        </ul>
 
 			    </div>
@@ -84,5 +122,85 @@
   	</div>
 
 </nav>
+{% block footer %}
+<footer class="" id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7 footer-copyright">
+                    © Team- SHARE AND CARE
+                    <div class="credits">
 
+                      <button type="button" class="btn btn-link btn-md " data-toggle="modal" data-target="#myModal1">Know More About Share And Care</button>
+                      <!-- Modal -->
+                      <div id="myModal1" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                          <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title"> ABOUT US </h4>
+                            </div>
+                            <div class="modal-body">
+                              <p>Share And Care is a perfect platform to widen one's horizon. Share And Care is best source of Selling, Buying and Donating Books .
+								  The portal project scope is well defined by its objectives as given above – it is primarily an Online student help Platform to allow exchange of books, donation of books to the needy and help students avail counselling on various issues from faculty and student mentors.
+
+Through the initial phase, a portal 'Construction Page' was implemented and later on a fully functional web based portal is being developed simultaneously. 
+
+                            </div>
+
+                          </div>
+
+                        </div>
+                      </div>
+&nbsp; &nbsp; || &nbsp;&nbsp;
+                      <button type="button" class="btn btn-link btn-md" data-toggle="modal" data-target="#myModal">FAQ</button>
+                      <!-- Modal -->
+                      <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                          <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Frequently Asked Questions</h4>
+                            </div>
+                            <div class="modal-body">
+                              <p> <strong> QUES: How do I make an account on Share And Care?</strong></p>
+
+            <p>"Sign up for Share And Care. Visit the Share And Care creation page. Follow the steps on the screen to complete your account setup. After you've created your Share And Care Account, you can use it to sign in to Share And Care on your computer, phone, or tablet.
+            </p> <p> <strong> Ques: How do I change my password? </strong>
+
+            <p>If you know your current password, you can change it:
+Click  on change password
+Type your current and new passwords
+Click Save Changes
+
+
+
+
+            </p> <p> <strong> Ques: How can I alter my answer and delete the previous one? </strong></p><p>
+              You can edit the answer you have posted previously quite easily using the answer module.
+            </p>
+
+
+                            </div>
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 footer-social">
+                    <div class="pull-right hidden-xs hidden-sm">
+                        <a href="https://www.facebook.com/Share-and-Care-109992302967095"><i class="fa fa-facebook"></i></a>
+                        <a href="https://www.linkedin.com/company-beta/13349647/"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
 {% endblock %}

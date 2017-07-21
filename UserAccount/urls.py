@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^book_form/$', views.new_book_post, name='book_form'),
 	url(r'^donate_book_form/$', views.donate_book_post, name='donate_book_form'),
     url(r'^home/$', views.home, name='home'),
+    url(r'^change_password/$', views.change_password, name='change_password'),
 
 
 ]
