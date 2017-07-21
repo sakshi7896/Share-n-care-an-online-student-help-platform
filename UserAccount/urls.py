@@ -1,8 +1,7 @@
 from django.conf.urls import include,url
 from django.contrib.auth.views import login,logout, password_reset, password_reset_done, password_reset_confirm,password_reset_complete
 from . import views
-from django.conf import settings
-from django.conf.urls.static import static
+
 
 urlpatterns = [
    
@@ -16,9 +15,10 @@ urlpatterns = [
 	url(r'^donate_book_form/$', views.donate_book_post, name='donate_book_form'),
     url(r'^home/$', views.home, name='home'),
     url(r'^change_password/$', views.change_password, name='change_password'),
+    url(r'^view_profile/$', views.view_profile, name='view_profile'),
+
 
 
 ]
-if settings.DEBUG is True:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
