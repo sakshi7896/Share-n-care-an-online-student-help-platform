@@ -58,7 +58,7 @@ class BookPostForm(forms.ModelForm):
     image=forms.ImageField()
     class Meta:
         model=Book
-        fields=('book_title','subject','author','pub_year','pub_name','price','book_cond','image','b_type','negotiable')
+        fields=('book_title','subject','author','pub_year','pub_name','price','book_cond','image','negotiable')
 		
 class BookDonateForm(forms.ModelForm):
     image=forms.ImageField()
