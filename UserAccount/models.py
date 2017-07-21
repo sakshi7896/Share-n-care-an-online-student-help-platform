@@ -28,7 +28,7 @@ class Book(models.Model):
     YEAR_CHOICES = []
     for r in range(1980, (datetime.datetime.now().year+1)):
         YEAR_CHOICES.append((r,r))
-    user_book_id = models.ForeignKey(User,null=False)
+    user_book = models.ForeignKey(Profile,null=False)
     book_title = models.CharField(max_length=50)
     subject = models.CharField(max_length=50)
     author = models.CharField(max_length=50)
