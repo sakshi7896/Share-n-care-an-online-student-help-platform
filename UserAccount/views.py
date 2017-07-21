@@ -118,7 +118,8 @@ def new_book_post(request):
         if form.is_valid():
             book = Book()
             user = User.objects.get(id=request.session['id'])
-            book.user_book_id=user
+            profile = Profile.objects.get(user=user)
+            book.user_book=profile
             book.book_pic = form.cleaned_data['image']
             book.book_title = request.POST["book_title"]
             book.subject = request.POST["subject"]
@@ -144,7 +145,8 @@ def donate_book_post(request):
         if form.is_valid():
             book = Book()
             user = User.objects.get(id=request.session['id'])
-            book.user_book_id=user
+            profile = Profile.objects.get(user=user)
+            book.user_book=profile
             book.book_pic = form.cleaned_data['image']
             book.book_title = request.POST["book_title"]
             book.subject = request.POST["subject"]
