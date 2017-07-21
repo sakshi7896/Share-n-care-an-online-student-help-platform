@@ -36,9 +36,7 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request,user)
-                print user.id
                 request.session['id'] = user.id
-                print request.session['id']
                 return render(request, 'UserAccount/home.html')
             else:
                 return HttpResponse("Inactive User")
@@ -66,7 +64,7 @@ def register(request):
             newUser.save()
             subject = 'Registration Successful- Share And Care'
 
-            message = 'Greetings! This is a test Email sent from the Django Project on Successful Registration.'
+            message = 'Greetings! Ypu have been successfully registered on Share And Care - An Online Student Help Platform. We are very happy to welcome you on BOARD with us!'
             from_email = 'sharencare@hotmail.com'
             email_msg="Subject: {} \n\n{}".format(subject,message)
             smtp = smtplib.SMTP('smtp.live.com',25)
@@ -119,8 +117,8 @@ def new_book_post(request):
         form=BookPostForm(request.POST,request.FILES)
         if form.is_valid():
             book = Book()
-            print request.session['id']
-            book.user_book_id=request.session['id']
+            user = User.objects.get(id=request.session['id'])
+            book.user_book_id=user
             book.book_pic = form.cleaned_data['image']
             book.book_title = request.POST["book_title"]
             book.subject = request.POST["subject"]
@@ -130,7 +128,7 @@ def new_book_post(request):
             book.book_cond = request.POST["book_cond"]
             book.negotiable = request.POST["negotiable"]
             book.price = request.POST["price"]
-            book.b_type = request.POST["b_type"]
+            book.b_type = 'S'
             book.save()
             return HttpResponse('New book post has been added')
         else:
@@ -145,9 +143,8 @@ def donate_book_post(request):
         form=BookDonateForm(request.POST,request.FILES)
         if form.is_valid():
             book = Book()
-            print "Session id : "
-            print request.session['id']
-            book.user_book_id=request.session['id']
+            user = User.objects.get(id=request.session['id'])
+            book.user_book_id=user
             book.book_pic = form.cleaned_data['image']
             book.book_title = request.POST["book_title"]
             book.subject = request.POST["subject"]
