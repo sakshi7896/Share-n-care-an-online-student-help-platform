@@ -166,3 +166,22 @@ def donate_book_post(request):
 
     donateBookForm =BookDonateForm(None)
     return render(request, 'UserAccount/donatebookform.html', {'form' :donateBookForm})
+
+def change_password(request):
+    if request.method == "POST":
+        old = request.POST['old_pass']
+        new = request.POST['new_pass']
+        """
+                login(request,user)
+                print user.id
+                request.session['id'] = user.id
+                print request.session['id']
+                return render(request, 'UserAccount/home.html')
+            else:
+                return HttpResponse("Inactive User")
+        else:
+            return render(request, 'UserAccount/login.html',{'error_message':"Invalid user Credentials"})
+
+            "THIS IS INCOMPLETE"
+            """
+    return render(request, 'UserAccount/change_password.html')
