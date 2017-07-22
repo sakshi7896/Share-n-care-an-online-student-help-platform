@@ -2,44 +2,11 @@
 {% extends 'base.html'%}
 {% load staticfiles %}
 {% block head %}
- <style>
- #footer
-{
-	background-color: #00547A;
-	padding: 20px 0px;
-}
-.footer-copyright {
-    color: #fff;
-    line-height: 32px;
-    text-align: left;
-}
-.footer-social
-{
-	float: right;
-}
-.footer-social a {
-    font-size: 18px;
-    color: #fff;
-}
-.footer-social a :hover{
-color: #e5e5f2;
-}
-.btn-link{
-    color: #fff;
 
-}
-.btn-link:hover{
-  color: #e5e5f2;
-
-}
-.modal{
-  color: #000;
-}
-
-</style>
 
 <title>Share and care</title>
 <link rel="stylesheet" href="{% static 'UserAccount/navbar.css' %}">
+<link rel="stylesheet" href="{% static 'UserAccount/footer.css' %}">
 <script>
     $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
@@ -48,7 +15,9 @@ color: #e5e5f2;
 
 
 {% endblock %}
+
 {% block body %}
+{% block navbar%}
 <nav class="navbar navbar-inverse navbar-fixed-top">
 
     
@@ -110,7 +79,7 @@ color: #e5e5f2;
 					   <li class="" id="changepassword"><a href="{% url 'change_password'%}"><i class="fa fa-key" aria-hidden="true"></i> 
 			          Change Password
 			           </a></li>
-                 <li class="" id="viewprofile"><a href="{% url 'view_profile'%}"><i class="fa fa-key" aria-hidden="true"></i> 
+                 <li class="" id="viewprofile"><a href="{% url 'view_profile'%}"><i class="fa fa-user fa-fw aria-hidden="true""></i>
 			          View Profile
 			           </a></li>
 			        </ul>
@@ -125,9 +94,12 @@ color: #e5e5f2;
   	</div>
 
 </nav>
+{% endblock %}
+{% block content %}
+{% endblock %}
 {% block footer %}
-<footer class="" id="footer">
-        <div class="container">
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container footer">
             <div class="row">
                 <div class="col-sm-7 footer-copyright">
                     © Team- SHARE AND CARE
@@ -146,9 +118,9 @@ color: #e5e5f2;
                             </div>
                             <div class="modal-body">
                               <p>Share And Care is a perfect platform to widen one's horizon. Share And Care is best source of Selling, Buying and Donating Books .
-								  The portal project scope is well defined by its objectives as given above – it is primarily an Online student help Platform to allow exchange of books, donation of books to the needy and help students avail counselling on various issues from faculty and student mentors.
+								              The portal project scope is well defined by its objectives as given above – it is primarily an Online student help Platform to allow exchange of books, donation of books to the needy and help students avail counselling on various issues from faculty and student mentors.
 
-Through the initial phase, a portal 'Construction Page' was implemented and later on a fully functional web based portal is being developed simultaneously. 
+                              Through the initial phase, a portal 'Construction Page' was implemented and later on a fully functional web based portal is being developed simultaneously. 
 
                             </div>
 
@@ -172,17 +144,22 @@ Through the initial phase, a portal 'Construction Page' was implemented and late
                               <p> <strong> QUES: How do I make an account on Share And Care?</strong></p>
 
             <p>"Sign up for Share And Care. Visit the Share And Care creation page. Follow the steps on the screen to complete your account setup. After you've created your Share And Care Account, you can use it to sign in to Share And Care on your computer, phone, or tablet.
-            </p> <p> <strong> Ques: How do I change my password? </strong>
+            </p> <p> 
+            <strong> Ques: How do I change my password? </strong>
 
             <p>If you know your current password, you can change it:
-Click  on change password
-Type your current and new passwords
-Click Save Changes
+                Click  on change password
+                Type your current and new passwords
+                Click Save Changes
 
 
 
 
-            </p> <p> <strong> Ques: How can I alter my answer and delete the previous one? </strong></p><p>
+            </p> 
+            <p> 
+            <strong> Ques: How can I alter my answer and delete the previous one? </strong>
+            </p>
+            <p>
               You can edit the answer you have posted previously quite easily using the answer module.
             </p>
 
@@ -198,12 +175,20 @@ Click Save Changes
                 <div class="col-sm-5 footer-social">
                     <div class="pull-right hidden-xs hidden-sm">
                         <a href="https://www.facebook.com/Share-and-Care-109992302967095"><i class="fa fa-facebook"></i></a>
+                        &nbsp;
                         <a href="https://www.linkedin.com/company-beta/13349647/"><i class="fa fa-linkedin"></i></a>
+                        &nbsp;
                         <a href="#"><i class="fa fa-twitter"></i></a>
+                        
                     </div>
+
                 </div>
+
             </div>
+            
         </div>
-    </footer>
+
+    
+    </nav>
 {% endblock %}
 {% endblock %}
