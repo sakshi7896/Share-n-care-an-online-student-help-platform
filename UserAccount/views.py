@@ -12,9 +12,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.conf import settings
 from django.shortcuts import redirect
-
+from django.contrib.auth.forms import PasswordChangeForm
 from django.core.mail import send_mail, BadHeaderError
-
+from django.contrib.auth import update_session_auth_hash
 
 def index(request):
     return render(request, 'index.html')
@@ -167,23 +167,25 @@ def donate_book_post(request):
     return render(request, 'UserAccount/donatebookform.html', {'form' :donateBookForm})
 
 def change_password(request):
-    if request.method == "POST":
-        old = request.POST['old_pass']
-        new = request.POST['new_pass']
-        """
-                login(request,user)
-                print user.id
-                request.session['id'] = user.id
-                print request.session['id']
-                return render(request, 'UserAccount/home.html')
-            else:
-                return HttpResponse("Inactive User")
+    message = " "
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if not request.user.is_authenticated:
+            return redirect('login_user')
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            return redirect('view_profile')
         else:
-            return render(request, 'UserAccount/login.html',{'error_message':"Invalid user Credentials"})
+            message = "Either Old Password Incorrect or New Passwords do not match"
+            context={
+            'form':form,
+            'error_message':message
+            }
+            return render(request,'UserAccount/change_password.html',context)
+    form = PasswordChangeForm(request.user, request.POST)
+    return render(request, 'UserAccount/change_password.html',{'form': form})
 
-            "THIS IS INCOMPLETE"
-            """
-    return render(request, 'UserAccount/change_password.html')
 
 def view_profile(request):
     user = User.objects.get(id=request.session['id'])
