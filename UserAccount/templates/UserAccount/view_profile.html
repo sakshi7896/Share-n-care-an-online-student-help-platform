@@ -10,21 +10,103 @@ document.getElementById("viewprofile").setAttribute("class","active");
 }
 
 </script>
+<style>
+.user-row {
+    margin-bottom: 14px;
+}
+
+.user-row:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-user {
+    margin: 13px 0;
+    padding: 5px;
+    height: 100%;
+}
+
+.dropdown-user:hover {
+    cursor: pointer;
+}
+
+.table-user-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information > tbody > tr:first-child {
+    border-top: 0;
+}
+
+
+.table-user-information > tbody > tr > td {
+    border-top: 0;
+}
+.toppad
+{margin-top:20px;
+}
+
+</style>
 {% endblock %}
 {% block body %}
 {{block.super}}
-
-<div class ="container">
-    <div class ="jumbotron">
-    <strong> Name </strong> : {{user.first_name}} <br>
-    <strong>Last Name</strong> : {{user.last_name}} <br>
-    <strong>Username</strong> : {{user.username}}<br>
-    <strong>Phone Number</strong> : {{userprofile.phone_number}}<br>
-    <strong>Course</strong> : {{userprofile.course}}<br>
-    <strong>Branch</strong> : {{userprofile.branch}}<br>
-    <strong>Year</strong> : {{userprofile.year}}<br>
-
-
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+   
+   
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{user.first_name}}  {{user.last_name}} </h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" class="img-circle img-responsive"> </div>
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Email ID </td>
+                        <td>{{user.email}}</td>
+                      </tr>
+                       <tr>
+                        <td>Username</td>
+                        <td>{{user.user_name}}</td>
+                      </tr>
+                      <tr>
+                        <td>Join date:</td>
+                        <td>{{user.date_joined}}</td>
+                      </tr>
+                      <tr>
+                        <td>Last Logined on</td>
+                        <td>{{user.last_login}}</td>
+                      </tr>
+                   
+                         <tr>
+                             <tr>
+                        <td>Course</td>
+                        <td>{{userprofile.course}}</td>
+                      </tr>
+                        <tr>
+                        <td>Branch</td>
+                        <td>{{userprofile.branch}}</td>
+                      </tr>
+                      <tr>
+                        <td>Year</td>
+                        <td>{{userprofile.year}}</td>
+                      </tr>
+                        <td>Phone Number</td>
+                        <td> {{userprofile.phone_number}}
+                        </td>   
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+                </div>
+              </div>
+            </div>
+                 <div class="panel-footer">
+                    </div>
+            
+          </div>
+        </div>
+      </div>
     </div>
-</div>
 {% endblock %}
