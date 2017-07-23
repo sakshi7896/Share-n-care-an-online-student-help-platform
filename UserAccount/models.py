@@ -64,7 +64,7 @@ class Book(models.Model):
     negotiable = models.CharField(max_length=3,
             choices=NEGOTIABILITY,
         default=NO,)
-    created_time=models.DateField(default=datetime.datetime.now())
+    created_time=models.DateTimeField(auto_now_add = True)
 
 
 		
