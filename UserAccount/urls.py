@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^home/$', views.home, name='home'),
     url(r'^change_password/$', views.change_password, name='change_password'),
     url(r'^view_profile/$', views.view_profile, name='view_profile'),
+    url(r'^recent/$', views.recent, name='recent'),
 
 
 
