@@ -7,14 +7,16 @@ from django.db import models
 from django import template
 from django.template.loader import get_template
 from UserAccount.form import SignUpForm
-from UserAccount.models import Profile
+from UserAccount.models import Profile,Book
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.conf import settings
 from django.shortcuts import redirect
-
+from django.http import JsonResponse
+from django.core import serializers
 from django.core.mail import send_mail, BadHeaderError
-
+import pprint
+import datetime
 
 def index(request):
     return render(request, 'index.html')
@@ -192,3 +194,15 @@ def view_profile(request):
     'userprofile':userprofile,
             }
     return render(request, 'UserAccount/view_profile.html', context)
+
+
+
+def recent(request):
+    #results=Book.objects.all().order_by('-created_time')[:2]
+    results=Book.objects.all()
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(results)
+    posts_serialized = serializers.serialize('json', results)
+    pp.pprint(posts_serialized)
+    return JsonResponse(posts_serialized, safe=False) 
+    
