@@ -166,6 +166,34 @@ def donate_book_post(request):
     donateBookForm =BookDonateForm(None)
     return render(request, 'UserAccount/donatebookform.html', {'form' :donateBookForm})
 
+	
+def counselling_post(request):
+    if request.method=='POST':
+        form=CounsellingForm(request.POST,request.FILES)
+        if form.is_valid():
+            counselling = Counselling()
+            user = User.objects.get(id=request.session['id'])
+            profile = Profile.objects.get(user=user)
+            book.user_book=profile
+            book.book_pic = form.cleaned_data['image']
+            book.book_title = request.POST["book_title"]
+            book.subject = request.POST["subject"]
+            book.author = request.POST["author"]
+            book.pub_year = request.POST["pub_year"]
+            book.pub_name = request.POST["pub_name"]
+            book.book_cond = request.POST["book_cond"]
+            book.b_type = 'D'
+            book.negotiable = 'N'
+            book.price = 0.0
+            book.save()
+            return HttpResponse('New book for donation has been added')
+        else:
+            return HttpResponse(form.errors)
+    
+
+    donateBookForm =BookDonateForm(None)
+    return render(request, 'UserAccount/counsellingform.html', {'form' :donateBookForm}) #to chancge
+
 def change_password(request):
     message = " "
     if request.method == 'POST':
