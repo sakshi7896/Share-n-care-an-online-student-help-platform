@@ -216,9 +216,12 @@ def change_password(request):
 
 
 def view_profile(request):
-    user = User.objects.get(id=request.session['id'])
-    userprofile = Profile.objects.get(user=user)
-    context = {
-    'userprofile':userprofile,
-            }
-    return render(request, 'UserAccount/view_profile.html', context)
+    if request.user.is_authenticated:
+        user = User.objects.get(id=request.session['id'])
+        userprofile = Profile.objects.get(user=user)
+        context = {
+        'userprofile':userprofile,
+                }
+        return render(request, 'UserAccount/view_profile.html', context)
+    else:
+        return render(request, 'UserAccount/login.html')
