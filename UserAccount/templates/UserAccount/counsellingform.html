@@ -1,33 +1,40 @@
 {% extends 'UserAccount/navbar.html' %}
 {% block head %}
-<title> Share And Care - Change Password </title>
+
+<title>Counselling Form</title>
 {{block.super}}
+
 <script type="text/javascript">
 window.onload=function()
 {
-document.getElementById("contact").setAttribute("class","active");
 document.getElementById("home").setAttribute("class","");
+document.getElementById("counselling").setAttribute("class","active");
 
 }
 
 </script>
-
 {% endblock %}
 {% block body %}
+{{block.super}}
 
 <div class="container"> 
   
-        <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div id="bookformbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
           
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <div class="panel-title">Change Password</div>
-                        <div class="panel-body" >      
+                            <div class="panel-title">Counselling form</div>
+                            <div style="float:right; font-size: 85%; position: relative; top:-10px">
                             
-                       {% block change_password %}
+                            </div>
+                        </div>  
+                        <div class="panel-body" >
+                            
+                            
+                       {% block counselling_form %}
                 
-                        <form method="post" action=""  class="form-horizontal">{% csrf_token %}
-                        <div id="signupalert" class="alert alert-danger">
+                        <form method="post" action=""  class="form-horizontal"  enctype="multipart/form-data">  {% csrf_token %}
+                        <div id="bookformalert" class="alert alert-danger">
                                     <p>
                                        {% if error_message %}
                                             <div class='message'>
@@ -46,7 +53,7 @@ document.getElementById("home").setAttribute("class","");
                        <div class="form-group">
 
                                     <div class="col-sm-12 controls col-md-offset-3 col-md-9">
-                                      <input type="submit" value="Submit" name="submit"/><br />
+                                      <input type="submit" value=" Submit" name="submit"/><br />
                                      
                                     </div>
                                 </div>
@@ -63,4 +70,5 @@ document.getElementById("home").setAttribute("class","");
                
          </div>
      </div>
+     
 {% endblock %}

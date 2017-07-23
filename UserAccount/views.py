@@ -12,11 +12,17 @@ from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.conf import settings
 from django.shortcuts import redirect
+
 from django.http import JsonResponse
 from django.core import serializers
 from django.core.mail import send_mail, BadHeaderError
 import pprint
 import datetime
+
+from django.contrib.auth.forms import PasswordChangeForm
+from django.core.mail import send_mail, BadHeaderError
+from django.contrib.auth import update_session_auth_hash
+
 
 def index(request):
     return render(request, 'index.html')
@@ -168,32 +174,65 @@ def donate_book_post(request):
     donateBookForm =BookDonateForm(None)
     return render(request, 'UserAccount/donatebookform.html', {'form' :donateBookForm})
 
-def change_password(request):
-    if request.method == "POST":
-        old = request.POST['old_pass']
-        new = request.POST['new_pass']
-        """
-                login(request,user)
-                print user.id
-                request.session['id'] = user.id
-                print request.session['id']
-                return render(request, 'UserAccount/home.html')
-            else:
-                return HttpResponse("Inactive User")
+	
+def counselling_post(request):
+    if request.method=='POST':
+        form=CounsellingForm(request.POST,request.FILES)
+        if form.is_valid():
+            counselling = Counselling()
+            user = User.objects.get(id=request.session['id'])
+            profile = Profile.objects.get(user=user)
+            book.user_book=profile
+            book.book_pic = form.cleaned_data['image']
+            book.book_title = request.POST["book_title"]
+            book.subject = request.POST["subject"]
+            book.author = request.POST["author"]
+            book.pub_year = request.POST["pub_year"]
+            book.pub_name = request.POST["pub_name"]
+            book.book_cond = request.POST["book_cond"]
+            book.b_type = 'D'
+            book.negotiable = 'N'
+            book.price = 0.0
+            book.save()
+            return HttpResponse('New book for donation has been added')
         else:
-            return render(request, 'UserAccount/login.html',{'error_message':"Invalid user Credentials"})
+            return HttpResponse(form.errors)
+    
 
-            "THIS IS INCOMPLETE"
-            """
-    return render(request, 'UserAccount/change_password.html')
+    donateBookForm =BookDonateForm(None)
+    return render(request, 'UserAccount/counsellingform.html', {'form' :donateBookForm}) #to chancge
+
+def change_password(request):
+    message = " "
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if not request.user.is_authenticated:
+            return redirect('login_user')
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            return redirect('view_profile')
+        else:
+            message = "Either Old Password Incorrect or New Passwords do not match"
+            context={
+            'form':form,
+            'error_message':message
+            }
+            return render(request,'UserAccount/change_password.html',context)
+    form = PasswordChangeForm(request.user, request.POST)
+    return render(request, 'UserAccount/change_password.html',{'form': form})
+
 
 def view_profile(request):
-    user = User.objects.get(id=request.session['id'])
-    userprofile = Profile.objects.get(user=user)
-    context = {
-    'userprofile':userprofile,
-            }
-    return render(request, 'UserAccount/view_profile.html', context)
+    if request.user.is_authenticated:
+        user = User.objects.get(id=request.session['id'])
+        userprofile = Profile.objects.get(user=user)
+        context = {
+        'userprofile':userprofile,
+                }
+        return render(request, 'UserAccount/view_profile.html', context)
+    else:
+        return render(request, 'UserAccount/login.html')
 
 
 
