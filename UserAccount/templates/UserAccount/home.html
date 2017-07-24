@@ -1,5 +1,17 @@
 {% extends 'UserAccount/navbar.html'%}
+{%block head %}
+{{block.super}}
+<style type="text/css">
+	.container
+	{
+		width:150px;
+		height:	150px;
+		margin-top: 0;
 
+	}
+</style>
+
+{% endblock %}
 {% block body %}
 {% block navbar %}
 {{block.super}}
@@ -8,12 +20,7 @@
 {% block content %}
 <div class="col-md-4 col-sm-6"  >
   </div>
-  <div class="col-md-5 col-sm-6"  >
-<div class="container">
-<a href="{% url 'book_form'%}">
-<button class="btn" type="submit" href="">Book form</button>
-</a>
-</div>
+  <div class="col-md-5 col-sm-6" id="allposts" >
 </div>
 
  <div class="col-md-3 col-sm-6" id="recentposts" >
@@ -31,11 +38,10 @@ $(document).ready(function() {
         'dataType': 'json',
      success: function(json) {
          //alert(json);
-         //document.getElementById("recentposts").innerHTML=json;
        var a=JSON.parse(json);
        //alert(a[0].model);
        var len=Object.keys(a).length;
-     
+     alert(len);
 for (var i = 0; i < len; i++) {
 	
         $("#recentposts").append('<div class="panel panel-info">'+
@@ -49,6 +55,44 @@ for (var i = 0; i < len; i++) {
            
      }
  })
+ $.ajax({
+     type: 'POST',
+     url: '{% url "allposts" %}',
+     'data': {
+           
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+        	},
+      'dataType': 'json',
+      success: function(json) {
+      
+       var a=JSON.parse(json);
+       var len=Object.keys(a).length;
+     	//alert(len);
+		for (var i = 0; i < len; i++)
+		 {
+	
+        $("#allposts").append(
+        	'<div class="panel panel-info">'+
+		  		'<div class="panel-heading">'+
+		  '<span class="label label-primary">'+a[i].fields["book_title"]+'</span> '+
+		  '<span class="label label-primary style="float:rights;">'+a[i].fields["subject"]+'</span> '+
+		  '<span class="label label-primary">'+"Rs."+a[i].fields["price"]+'</span> '+
+		  '</div>'+
+		  '<div class="panel-body" ><table><tr><td>'+
+				 
+				      '<div  class="container"><p >'+a[i].fields["author"]+'</p>'+
+				     
+				       '<p >'+a[i].fields["pub_name"]+'</p>'+
+				       '<p >'+a[i].fields["pub_year"]+'</p>'+
+				       '<p >'+"Price Negotiable?:"+a[i].fields["negotiable"]+'</p>'+
+				       '<p >'+"Book Condition:"+a[i].fields["b_cond"]+'</p>'+
+				       
+				       '<p >'+a[i].fields["b_type"]+'</p></td>'+
+				    '</tr> </table>'+
+		 '</div>');
+       
+		} }
+ 	})
   });
 
  </script>

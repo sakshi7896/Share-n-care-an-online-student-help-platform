@@ -238,6 +238,16 @@ def view_profile(request):
 
 def recent(request):
     results=Book.objects.all().order_by('-created_time')[:5]
+    #results=Book.objects.all()
+    #pp = pprint.PrettyPrinter(indent=4)
+    #pp.pprint(results)
+    posts_serialized = serializers.serialize('json', results)
+    #pp.pprint(posts_serialized)
+    return JsonResponse(posts_serialized, safe=False) 
+
+def allposts(request):
+    #results=Book.objects.all().order_by('-created_time')[:5]
+    results=Book.objects.all()
     #pp = pprint.PrettyPrinter(indent=4)
     #pp.pprint(results)
     posts_serialized = serializers.serialize('json', results)

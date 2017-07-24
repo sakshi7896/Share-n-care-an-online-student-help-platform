@@ -12,6 +12,18 @@ document.getElementById("home").setAttribute("class","");
 }
 
 </script>
+
+<style type="text/css">
+	
+	.container
+	{
+		width:150px;
+		height:	150px;
+		margin-top: 0;
+
+	}
+	 	
+</style>
 {% endblock %}
 {% block body %}
 {{block.super}}
@@ -25,58 +37,52 @@ document.getElementById("home").setAttribute("class","");
    <h1>Search Results for query "{{q}}"</h1>
    {% for book in queryset%}
 <div class="panel panel-info">
-  <div class="panel-heading">{{book.book_title}}</div>
-  <div class="panel-body" >
-  <table>
-  <!--
-		<div class="paragraphs">
-		  <div class="row">
-		    
-		   -->
-		   <tr>
-		   <td>
-		   <div class="span4">
-		     <img src="{{book.book_pic.url}}" alt="Book Picture" height="150" width="100" align="left" />
-		      <div class="content-heading"><h3>{{book.subject}} </h3>
-		      <p >{{book.subject}}</p>
-		      </div>
-</div>
-		     </td> 
-		    <!--
-		    <div class="span4">
-		    <div class="content-heading">
-		    -->
-		    <td>
-		    <h3>{{book.subject}} </h3>
-		    </td>
-		   <!-- </div>
-		  </div>
-		</div>
-		
-
-     
- </div>-->
- </tr>
-  </table>
-  <div class="paragraphs">
-  <div class="row">
-    <div class="span4">
-      <div class="clearfix content-heading">
-          <img src="{{book.book_pic.url}}" class="pull-left" alt="Book Picture" height="150" width="100" />
-          <h3>Experience &nbsp </h3>
-          <p>Donec id elit non mi porta gravida at eget metus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
-      </div>
-
-      
-    </div>
-    <div class="clearfix content-heading">
-          <img src="{{book.book_pic.url}}" class="pull-left" alt="Book Picture" height="150" width="100" />
-          <h3>Experience &nbsp </h3>
-          <p>Donec id elit non mi porta gravida at eget metus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
-      </div>
+  <div class="panel-heading">
+  <span class="label label-primary">{{book.book_title}}</span> 
+  <span class="label label-primary style="float:rights;">{{book.subject}}</span> 
+  <span class="label label-primary">Rs.{{book.price}}</span> 
   </div>
+  <div class="panel-body" >
+ 
+	
+		   	<table>
+		   	<tr>
+		   	<td>
+		     <img src="{{book.book_pic.url}}" alt="Book Picture" height="150" width="100"  />
+		    </td>
+		    <td >
+		      <div  class="container">
+		     
+		      <p >{{book.author}}</p>
+		     
+		       <p >{{book.pub_name}}</p>
+		       <p >{{book.pub_year}}</p>
+		       <p >Price Negotiable?:{{book.negotiable}}</p>
+		       <p >Book Condition:{{book.book_cond}}</p>
+		       
+		       <p >{{book.b_type}}</p>
+		      </td>
+		       
+		       
+		    
+		     <td>
+		      <div class="container">
+		      <h3>User Details </h3>
+		      <p >{{book.user_book.user.firstname}} {{book.user_book.user.lastname}}</p>
+		      <p >{{book.user_book.user.email}}</p>
+		      <p >{{book.user_book.phone_number}}</p>
+		      </div>
+		      </td>
+
+		     
+		     </tr>
+		     </table>
+ </div>
+		
+ 
+  
 </div>
-</div>
+
   {% endfor %}
  </div> 
 
