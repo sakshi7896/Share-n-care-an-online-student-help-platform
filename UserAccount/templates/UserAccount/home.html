@@ -30,19 +30,18 @@ $(document).ready(function() {
         },
         'dataType': 'json',
      success: function(json) {
-         alert(json);
+         //alert(json);
          //document.getElementById("recentposts").innerHTML=json;
        var a=JSON.parse(json);
-       alert(a[0].model);
+       //alert(a[0].model);
        var len=Object.keys(a).length;
      
 for (var i = 0; i < len; i++) {
 	
         $("#recentposts").append('<div class="panel panel-info">'+
   '<div class="panel-heading">'+a[i].fields["book_title"]+'</div>'+
-     ' <img src="'+a[i].fields["book_pic"]+'" alt="Book Picture" height="150" width="200" id="BookImage"/>'+
-  '<div class="panel-body">'+json[0].fields+'</div>'+
-'</div>'
+  '<div class="panel-body">'+'<p><b>'+a[i].fields["subject"]+'</b></p>'+
+  '<p>'+a[i].fields["author"]+'<button type="button" class="btn btn-danger " style="float:right;" >View details</button></p></div>'
 );
        
 }
