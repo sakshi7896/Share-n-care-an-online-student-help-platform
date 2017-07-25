@@ -1,0 +1,19 @@
+{% extends 'UserAccount/navbar.html' %}
+{% block head %}
+
+<title>Search Results -{{q}}</title>
+{{block.super}}
+
+<script type="text/javascript">
+window.onload=function()
+{
+document.getElementById("home").setAttribute("class","");
+
+}
+
+</script>
+{% endblock %}
+{% block body %}
+{{block.super}}
+<h1 style="margin-top:100px;" align = "center"> No Results Found. Try using a valid query String </h1>
+{% endblock %}

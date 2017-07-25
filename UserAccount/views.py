@@ -98,6 +98,8 @@ def search_book(request):
     if request.method == "POST":
         q = request.POST['query']
         option = request.POST['option']
+        if( q is None or q==""):
+            return render(request, 'UserAccount/notfound.html')
         if(option=='Name'):
             try:
                 queryset = Book.objects.filter(book_title__icontains=q)
