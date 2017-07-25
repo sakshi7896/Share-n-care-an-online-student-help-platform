@@ -102,7 +102,7 @@ def search_book(request):
             return render(request, 'UserAccount/notfound.html')
         if(option=='Name'):
             try:
-                queryset = Book.objects.filter(book_title__icontains=q)
+                queryset = Book.objects.filter(book_title__icontains=q,).filter(b_type='S')
             except Book.DoesNotExist:
                 return HttpResponse("No results found")
             context = {
@@ -112,7 +112,7 @@ def search_book(request):
             return render(request, 'UserAccount/search_results.html', context)
         elif(option=='Subject'):
             try:
-                queryset=Book.objects.filter(subject__icontains=q)
+                queryset=Book.objects.filter(subject__icontains=q).filter(b_type='S')
             except Book.DoesNotExist:
                 return HttpResponse("No results found")
             context = {
