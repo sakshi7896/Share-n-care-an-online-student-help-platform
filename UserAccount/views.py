@@ -98,11 +98,9 @@ def search_book(request):
     if request.method == "POST":
         q = request.POST['query']
         option = request.POST['option']
-        if( q is None or q==""):
-            return render(request, 'UserAccount/notfound.html')
         if(option=='Name'):
             try:
-                queryset = Book.objects.filter(book_title__icontains=q,).filter(b_type='S')
+                queryset = Book.objects.filter(book_title__icontains=q)
             except Book.DoesNotExist:
                 return HttpResponse("No results found")
             context = {
@@ -112,7 +110,7 @@ def search_book(request):
             return render(request, 'UserAccount/search_results.html', context)
         elif(option=='Subject'):
             try:
-                queryset=Book.objects.filter(subject__icontains=q).filter(b_type='S')
+                queryset=Book.objects.filter(subject__icontains=q)
             except Book.DoesNotExist:
                 return HttpResponse("No results found")
             context = {
@@ -183,23 +181,26 @@ def counselling_post(request):
         if form.is_valid():
             counselling = Counselling()
             user = User.objects.get(id=request.session['id'])
-            counselling.name1 = request.POST["name1"]
-            counselling.email = request.POST["email"]
-            counselling.college = request.POST["college"]
-            counselling.phone_number = request.POST["phone_number"]
-            counselling.branch = request.POST["branch"]
-            counselling.c_choices = request.POST["c_choices"]
-            counselling.description = request.POST["description"]
-            counselling.status_c = request.POST["status_c"]
-   
-            counselling.save()
-            return HttpResponse('New counselling request has been saved')
+            profile = Profile.objects.get(user=user)
+            book.user_book=profile
+            book.book_pic = form.cleaned_data['image']
+            book.book_title = request.POST["book_title"]
+            book.subject = request.POST["subject"]
+            book.author = request.POST["author"]
+            book.pub_year = request.POST["pub_year"]
+            book.pub_name = request.POST["pub_name"]
+            book.book_cond = request.POST["book_cond"]
+            book.b_type = 'D'
+            book.negotiable = 'N'
+            book.price = 0.0
+            book.save()
+            return HttpResponse('New book for donation has been added')
         else:
             return HttpResponse(form.errors)
     
 
-    counsellingForm =CounsellingForm(None)
-    return render(request, 'UserAccount/counsellingform.html', {'form' :counsellingForm}) #to chancge
+    donateBookForm =BookDonateForm(None)
+    return render(request, 'UserAccount/counsellingform.html', {'form' :donateBookForm}) #to chancge
 
 def change_password(request):
     message = " "
@@ -238,8 +239,9 @@ def view_profile(request):
 def recent(request):
     results=Book.objects.all().order_by('-created_time')[:5]
     #results=Book.objects.all()
-    #pp = pprint.PrettyPrinter(indent=4)
-    #pp.pprint(results)
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(results)
+    print results
     posts_serialized = serializers.serialize('json', results)
     #pp.pprint(posts_serialized)
     return JsonResponse(posts_serialized, safe=False) 
@@ -252,4 +254,21 @@ def allposts(request):
     posts_serialized = serializers.serialize('json', results)
     #pp.pprint(posts_serialized)
     return JsonResponse(posts_serialized, safe=False) 
+
+
+def book_detail(request):
+    
+    if not request.user.is_authenticated:
+        return render(request, 'UserAccount/login.html')
+    if request.method == "POST":
+        pk=request.POST['pk']
+        book = Book.objects.get(id=pk)
+        context={
+        'book':book,
+        }
+
+        return render(request, 'UserAccount/book_detail.html', context)
+        
+    
+
     

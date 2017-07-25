@@ -1,0 +1,91 @@
+{% extends 'UserAccount/navbar.html' %}
+{% block head %}
+
+<title>Book Detail- Share And Care</title>
+{{block.super}}
+<script type="text/javascript">
+window.onload=function()
+{
+document.getElementById("home").setAttribute("class","");
+}
+
+</script>
+<style type="text/css">
+	
+	.container
+	{
+		width:150px;
+		height:	150px;
+		margin-top: 0;
+
+	}
+	 	
+</style>
+{% endblock %}
+{% block body %}
+{{block.super}}
+
+<div class="col-md-3 col-sm-6"  >
+
+ </div>
+
+ <div class="col-md-6 col-sm-6"  >
+ 
+
+ <br/> <br/> <br/>
+
+<div class="panel panel-info">
+  <div class="panel-heading">
+  <span class="label label-primary">{{book.book_title}}</span> 
+  <span class="label label-primary style="float:rights;">{{book.subject}}</span> 
+  <span class="label label-primary">Rs.{{book.price}}</span> 
+  </div>
+  <div class="panel-body" >
+ 	
+	
+		   	<table>
+		   	<tr>
+		   	<td>
+		     <img src="{{book.book_pic.url}}" alt="Book Picture" height="150" width="100"  />
+		    </td>
+		    <td >
+		      <div  class="container">
+		     
+		      <p >{{book.author}}</p>
+		     
+		       <p >{{book.pub_name}}</p>
+		       <p >{{book.pub_year}}</p>
+		       <p >Price Negotiable?:{{book.negotiable}}</p>
+		       <p >Book Condition:{{book.book_cond}}</p>
+		       
+		       <p >{{book.b_type}}</p>
+		      </td>
+		       
+		       
+		    
+		     <td>
+		      <div class="container">
+		      <span class="label label-primary">Want to Buy this book?</span>
+		      <h3>Contact: </h3>
+		      <p >{{book.user_book.user.firstname}} {{book.user_book.user.lastname}}</p>
+		      <p >{{book.user_book.user.email}}</p>
+		      <p >{{book.user_book.phone_number}}</p>
+		      </div>
+		      </td>
+
+		     
+		     </tr>
+		     </table>
+ </div>
+		
+
+  
+</div>
+
+  
+ </div> 
+
+  
+=
+  
+{% endblock %}

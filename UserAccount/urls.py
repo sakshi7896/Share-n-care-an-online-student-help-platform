@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^view_profile/$', views.view_profile, name='view_profile'),
     url(r'^recent/$', views.recent, name='recent'),
     url(r'^allposts/$', views.allposts, name='allposts'),
+    url(r'^book_detail/$', views.book_detail, name='book_detail'),
 
 
 

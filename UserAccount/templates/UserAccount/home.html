@@ -2,13 +2,12 @@
 {%block head %}
 {{block.super}}
 <style type="text/css">
-	.container
-	{
-		width:150px;
-		height:	150px;
-		margin-top: 0;
-
-	}
+  .container
+  {
+    width:150px;
+    height: 150px;
+    margin-top: 0;
+  }
 </style>
 
 {% endblock %}
@@ -18,12 +17,29 @@
 {% endblock %}
 
 {% block content %}
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<script type="text/javascript">
+  function viewPost(param) {
+    // body...
+    $.post("{% url 'book_detail'  %}",
+        
+    {
+        pk:param,
+        'csrfmiddlewaretoken': '{{ csrf_token }}',
+    });
+  }
+</script>
 <div class="col-md-4 col-sm-6"  >
   </div>
-  <div class="col-md-5 col-sm-6" id="allposts" style="margin-top:100px;margin-bottom:200px;">
+  <div class="col-md-5 col-sm-6" id="allposts" >
 </div>
 
- <div class="col-md-3 col-sm-6" id="recentposts" style="margin-top:100px;margin-bottom:100px;" >
+ <div class="col-md-3 col-sm-6" id="recentposts" >
  </div>
 {% block recentposts %}
 <script>
@@ -43,15 +59,14 @@ $(document).ready(function() {
        var len=Object.keys(a).length;
      alert(len);
 for (var i = 0; i < len; i++) {
-	
+  
         $("#recentposts").append('<div class="panel panel-info">'+
   '<div class="panel-heading">'+a[i].fields["book_title"]+'</div>'+
   '<div class="panel-body">'+'<p><b>'+a[i].fields["subject"]+'</b></p>'+
-  '<p>'+a[i].fields["author"]+'<button type="button" class="btn btn-danger " style="float:right;" >View details</button></p></div>'
+  '<p>'+a[i].fields["author"]+'<button onclick="viewPost('+a[i]["pk"]+');" type="button" class="btn btn-primary " style="float:right;" id="MyButton">View details</button>'+'</p></div>'
 );
        
 }
-
            
      }
  })
@@ -61,40 +76,38 @@ for (var i = 0; i < len; i++) {
      'data': {
            
             'csrfmiddlewaretoken': '{{ csrf_token }}',
-        	},
+          },
       'dataType': 'json',
       success: function(json) {
-      
        var a=JSON.parse(json);
        var len=Object.keys(a).length;
-     	//alert(len);
-		for (var i = 0; i < len; i++)
-		 {
-	
+      //alert(len);
+    for (var i = 0; i < len; i++)
+     {
+  
         $("#allposts").append(
-        	'<div class="panel panel-info">'+
-		  		'<div class="panel-heading">'+
-		  '<span class="label label-primary">'+a[i].fields["book_title"]+'</span> '+
-		  '<span class="label label-primary style="float:rights;">'+a[i].fields["subject"]+'</span> '+
-		  '<span class="label label-primary">'+"Rs."+a[i].fields["price"]+'</span> '+
-		  '</div>'+
-		  '<div class="panel-body" ><table><tr><td>'+
-				 
-				      '<div  class="container"><p >'+a[i].fields["author"]+'</p>'+
-				     
-				       '<p >'+a[i].fields["pub_name"]+'</p>'+
-				       '<p >'+a[i].fields["pub_year"]+'</p>'+
-				       '<p >'+"Price Negotiable?:"+a[i].fields["negotiable"]+'</p>'+
-				       '<p >'+"Book Condition:"+a[i].fields["b_cond"]+'</p>'+
-				       
-				       '<p >'+a[i].fields["b_type"]+'</p></td>'+
-				    '</tr> </table>'+
-		 '</div>');
+          '<div class="panel panel-info">'+
+          '<div class="panel-heading">'+
+      '<span class="label label-primary">'+a[i].fields["book_title"]+'</span> '+
+      '<span class="label label-primary style="float:rights;">'+a[i].fields["subject"]+'</span> '+
+      '<span class="label label-primary">'+"Rs."+a[i].fields["price"]+'</span> '+
+      '</div>'+
+      '<div class="panel-body" ><table><tr><td>'+
+         
+              '<div  class="container"><p >'+a[i].fields["author"]+'</p>'+
+             
+               '<p >'+a[i].fields["pub_name"]+'</p>'+
+               '<p >'+a[i].fields["pub_year"]+'</p>'+
+               '<p >'+"Price Negotiable?:"+a[i].fields["negotiable"]+'</p>'+
+               '<p >'+"Book Condition:"+a[i].fields["b_cond"]+'</p>'+
+               
+               '<p >'+a[i].fields["b_type"]+'</p></td>'+
+            '</tr> </table>'+
+     '</div>');
        
-		} }
- 	})
+    } }
+  })
   });
-
  </script>
 {% endblock %}
 {% endblock %}
@@ -103,4 +116,6 @@ for (var i = 0; i < len; i++) {
 {% endblock %}
 
 {% endblock %}
+
+
 
