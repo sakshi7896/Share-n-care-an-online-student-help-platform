@@ -61,13 +61,15 @@ def register(request):
             username = request.POST.get('username')
             email =request.POST.get('email')
             password = request.POST.get('password1')
+            firstname=request.POST.get('first_name')
+            lastname=request.POST.get('last_name')
             phone_number=request.POST.get('phone_number')
             year=request.POST.get('year')
             branch=request.POST.get('branch')
             course=request.POST.get('course')
 
 
-            p1=User(username=username,email=email,password=password)
+            p1=User(username=username,email=email,password=password,first_name=firstname,last_name=lastname)
             p1.set_password(password)
             p1.save()
             newUser=Profile(user=p1,phone_number=phone_number,year=year,branch=branch,course=course)

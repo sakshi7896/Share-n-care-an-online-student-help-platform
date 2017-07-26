@@ -16,11 +16,12 @@ class SignUpForm(forms.ModelForm):
                           widget=forms.PasswordInput())
     password2 = forms.CharField(label='Password (Again)',
                         widget=forms.PasswordInput())
-
+    first_name=forms.CharField(label='First Name')
+    last_name=forms.CharField(label='Last Name')
 
     class Meta:
         model = Profile
-        fields = ('username', 'email', 'password1', 'password2','phone_number','year','branch','course' )
+        fields = ('username','first_name','last_name','email', 'password1', 'password2','phone_number','year','branch','course' )
 
     def clean_conf_password(self):
         if 'password' in self.cleaned_data:
