@@ -19,27 +19,53 @@
 {% block content %}
 <br/>
 <br/>
-<br/>
-<br/>
-<br/>
-<br/>
+
 <script type="text/javascript">
   function viewPost(param) {
     // body...
-    $.post("{% url 'book_detail'  %}",
+  $.post("{% url 'bookdetail'  %}",
         
     {
         pk:param,
         'csrfmiddlewaretoken': '{{ csrf_token }}',
+    },function (json) {
+      
+      
+      var a = JSON.parse(json);
+      
+     document.getElementById('allposts').innerHTML = '';
+    
+     $("#allposts").append(
+          '<div class="panel panel-info">'+
+          '<div class="panel-heading">'+
+      '<span class="label label-primary">'+a.fields["book_title"]+'</span> '+
+      '<span class="label label-primary style="float:rights;">'+a.fields["subject"]+'</span> '+
+      '<span class="label label-primary">'+"Rs."+a.fields["price"]+'</span> '+
+      '</div>'+
+      '<div class="panel-body" ><table><tr><td>'+
+         
+              '<div  class="container"><p >'+a.fields["author"]+'</p>'+
+             
+               '<p >'+a.fields["pub_name"]+'</p>'+
+               '<p >'+a.fields["pub_year"]+'</p>'+
+               '<p >'+"Price Negotiable?:"+a.fields["negotiable"]+'</p>'+
+               '<p >'+"Book Condition:"+a.fields["b_cond"]+'</p>'+
+               
+               '<p >'+a.fields["b_type"]+'</p>'+
+            '</tr> </table>'+
+     '</div>');
+
+    
     });
+    
   }
 </script>
 <div class="col-md-4 col-sm-6"  >
   </div>
-  <div class="col-md-5 col-sm-6" id="allposts" >
+  <div class="col-md-5 col-sm-6" id="allposts" style="margin-top:100px;margin-bottom:200px;" >
 </div>
 
- <div class="col-md-3 col-sm-6" id="recentposts" >
+ <div class="col-md-3 col-sm-6" id="recentposts" style="margin-top:100px;margin-bottom:100px;" >
  </div>
 {% block recentposts %}
 <script>
@@ -57,7 +83,6 @@ $(document).ready(function() {
        var a=JSON.parse(json);
        //alert(a[0].model);
        var len=Object.keys(a).length;
-     alert(len);
 for (var i = 0; i < len; i++) {
   
         $("#recentposts").append('<div class="panel panel-info">'+
@@ -104,6 +129,7 @@ for (var i = 0; i < len; i++) {
                '<p >'+a[i].fields["b_type"]+'</p></td>'+
             '</tr> </table>'+
      '</div>');
+
        
     } }
   })

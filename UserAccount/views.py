@@ -18,7 +18,7 @@ from django.core import serializers
 from django.core.mail import send_mail, BadHeaderError
 import pprint
 import datetime
-
+import json
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth import update_session_auth_hash
@@ -73,14 +73,15 @@ def register(request):
             subject = 'Registration Successful- Share And Care'
 
             message = 'Greetings! Ypu have been successfully registered on Share And Care - An Online Student Help Platform. We are very happy to welcome you on BOARD with us!'
-            from_email = 'sharencare@hotmail.com'
+            from_email = 'shareadcare@gmail.com'
             email_msg="Subject: {} \n\n{}".format(subject,message)
-            smtp = smtplib.SMTP('smtp.live.com',25)
+            smtp = smtplib.SMTP('smtp.gmail.com',587)
             smtp.starttls()
-            smtp.login('senders email','senders password')
-            smtp.sendmail('senders email',email,email_msg)
+            smtp.login('shareadcare@gmail.com','mirsajsob2017')
+            smtp.sendmail('shareadcare@gmail.com',email,email_msg)
             smtp.quit()
-            return HttpResponse('<h2>registration successful</h2>')
+            
+            return render(request, 'UserAccount/login.html')
         else:
             form = SignUpForm()
             context={
@@ -98,6 +99,8 @@ def search_book(request):
     if request.method == "POST":
         q = request.POST['query']
         option = request.POST['option']
+        if( q is None or q==""):
+            return render(request, 'UserAccount/notfound.html')
         if(option=='Name'):
             try:
                 queryset = Book.objects.filter(book_title__icontains=q)
@@ -256,18 +259,23 @@ def allposts(request):
     return JsonResponse(posts_serialized, safe=False) 
 
 
-def book_detail(request):
+def bookdetail(request):
     
     if not request.user.is_authenticated:
         return render(request, 'UserAccount/login.html')
     if request.method == "POST":
-        pk=request.POST['pk']
-        book = Book.objects.get(id=pk)
-        context={
-        'book':book,
-        }
-
-        return render(request, 'UserAccount/book_detail.html', context)
+        #name = request.GET.get('name', '')
+        pk=request.POST.get('pk', '')
+        obj = Book.objects.get(id=pk)
+        #user = User.objects.get(id=)
+        #userprofile = Profile.objects.get(id=obj.user_book)
+        #print json.dumps(userprofile)
+        book= serializers.serialize('json', [obj])
+        struct = json.loads(book)
+        data = json.dumps(struct[0])
+        #print data
+        return JsonResponse(data, safe=False)
+       
         
     
 

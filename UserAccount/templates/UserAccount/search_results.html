@@ -60,14 +60,15 @@ document.getElementById("home").setAttribute("class","");
 		       <p >Price Negotiable?:{{book.negotiable}}</p>
 		       <p >Book Condition:{{book.book_cond}}</p>
 		       
-		       <p >{{book.b_type}}</p>
+		  
 		      </td>
 		       
 		       
 		    
 		     <td>
 		      <div class="container">
-		      <h3>User Details </h3>
+		      <span class="label label-primary">Want to Buy this book?</span>
+		      <h3>Contact: </h3>
 		      <p >{{book.user_book.user.firstname}} {{book.user_book.user.lastname}}</p>
 		      <p >{{book.user_book.user.email}}</p>
 		      <p >{{book.user_book.phone_number}}</p>
