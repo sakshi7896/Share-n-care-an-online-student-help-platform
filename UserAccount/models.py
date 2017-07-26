@@ -75,17 +75,17 @@ class Book(models.Model):
 
     book_pic=models.ImageField(upload_to='BookImages',blank=True)
 
-    YES='Y'
-    NO='N'
+    YES='Yes'
+    NO='No'
     NEGOTIABILITY =(
         (YES, 'Yes'),
         (NO, 'No'),
     )
-    SELL='S'
-    DONATE='D'
+    SELL='Sell'
+    DONATE='Donate'
     Type=(
-        (SELL,'S'),
-        (DONATE,'D'),
+        (SELL,'Sell'),
+        (DONATE,'Donate'),
         )
     b_type=models.CharField(max_length=1,choices=Type,default=SELL)
     negotiable = models.CharField(max_length=3,

@@ -44,7 +44,7 @@ document.getElementById("home").setAttribute("class","");
 
   <div class="panel-heading">
   <span class="label label-primary">{{book.book_title}}</span> 
-  <span class="label label-primary style="float:rights;">{{book.subject}}</span> 
+  <span class="label label-primary" style="float:rights;">{{book.subject}}</span> 
   <span class="label label-primary">Rs.{{book.price}}</span> 
   </div>
   <div class="panel-body" >
@@ -74,7 +74,7 @@ document.getElementById("home").setAttribute("class","");
 		      <div class="container">
 		      <span class="label label-primary">Want to Buy this book?</span>
 		      <h3>Contact: </h3>
-		      <p >{{book.user_book.user.firstname}} {{book.user_book.user.lastname}}</p>
+		      <p >{{book.user_book.user.first_name}} {{book.user_book.user.last_name}}</p>
 		      <p >{{book.user_book.user.email}}</p>
 		      <p >{{book.user_book.phone_number}}</p>
 		      </div>

@@ -108,7 +108,7 @@ def search_book(request):
             return render(request, 'UserAccount/notfound.html')
         if(option=='Name'):
             try:
-                queryset = Book.objects.filter(book_title__icontains=q,).filter(b_type='S')
+                queryset = Book.objects.filter(book_title__icontains=q,).filter(b_type='Sell')
             except Book.DoesNotExist:
                 return HttpResponse("No results found")
             context = {
@@ -118,7 +118,7 @@ def search_book(request):
             return render(request, 'UserAccount/search_results.html', context)
         elif(option=='Subject'):
             try:
-                queryset=Book.objects.filter(subject__icontains=q).filter(b_type='S')
+                queryset=Book.objects.filter(subject__icontains=q).filter(b_type='Sell')
             except Book.DoesNotExist:
                 return HttpResponse("No results found")
             context = {
@@ -146,7 +146,7 @@ def new_book_post(request):
             book.book_cond = request.POST["book_cond"]
             book.negotiable = request.POST["negotiable"]
             book.price = request.POST["price"]
-            book.b_type = 'S'
+            book.b_type = 'Sell'
 
             book.save()
             return HttpResponse('New book post has been added')
@@ -173,8 +173,8 @@ def donate_book_post(request):
             book.pub_year = request.POST["pub_year"]
             book.pub_name = request.POST["pub_name"]
             book.book_cond = request.POST["book_cond"]
-            book.b_type = 'D'
-            book.negotiable = 'N'
+            book.b_type = 'Donate'
+            book.negotiable = 'No'
             book.price = 0.0
             book.save()
             return HttpResponse('New book for donation has been added')
