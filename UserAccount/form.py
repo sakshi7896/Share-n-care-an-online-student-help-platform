@@ -3,9 +3,9 @@ import re
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django import forms
-from .models import Profile,Book,Counselling
-
-
+from .models import Profile,Book,Counselling,YEAR_CHOICES,CONDITION,COUNSELLING_CHOICES,STATUS_CHOICES
+import datetime
+ 
 
 class SignUpForm(forms.ModelForm):
 
@@ -58,15 +58,18 @@ class UserForm(forms.ModelForm):
 
 class BookPostForm(forms.ModelForm):
     image=forms.ImageField()
-    pub_year = forms.CharField(label='Publication Year')
+    pub_year = forms.CharField(label='Publication Year',widget=forms.Select(choices=YEAR_CHOICES))
     pub_name = forms.CharField(label='Publication Name')
-    book_cond = forms.CharField(label='Book Condition')
+    book_cond = forms.CharField(label='Book Condition',widget=forms.Select(choices=CONDITION))
     class Meta:
         model=Book
         fields=('book_title','subject','author','pub_year','pub_name','price','book_cond','image','negotiable')
 		
 class BookDonateForm(forms.ModelForm):
     image=forms.ImageField()
+    pub_year = forms.CharField(label='Publication Year',widget=forms.Select(choices=YEAR_CHOICES))
+    pub_name = forms.CharField(label='Publication Name')
+    book_cond = forms.CharField(label='Book Condition',widget=forms.Select(choices=CONDITION))
     class Meta:
         model=Book
 
@@ -74,15 +77,15 @@ class BookDonateForm(forms.ModelForm):
 
 class CounsellingForm(forms.ModelForm):
     #image=forms.ImageField()
+    name1=forms.CharField(label='Name')
+    c_choices = forms.CharField(label='Counselling Choices',widget=forms.Select(choices=COUNSELLING_CHOICES))
+    status_c = forms.CharField(label='Status Choices',widget=forms.Select(choices=STATUS_CHOICES))
+
     class Meta:
         model=Counselling
         fields=('name1','email','college','phone_number','branch','c_choices','description','status_c')
 
     
 		
-class BookDonateForm(forms.ModelForm):
-    image=forms.ImageField()
-    class Meta:
-        model=Book
-        fields=('book_title','subject','author','pub_year','pub_name','book_cond','image')
+
 

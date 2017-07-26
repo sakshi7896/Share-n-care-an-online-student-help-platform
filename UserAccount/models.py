@@ -4,7 +4,37 @@ from django.db import models
 import datetime
 from PIL import Image
 
-# Create your models here.
+#BOOK MODEL CHOICES 
+YEAR_CHOICES = []
+for r in range(1980, (datetime.datetime.now().year+1)):
+    YEAR_CHOICES.append((r,r))
+
+NEW='New'
+OLD='Old'
+CONDITION =(
+        (NEW, 'New'),
+        (OLD, 'Old'),
+    )
+
+#COUNSELLING MODEL CHOICES
+PLACEMENT = 'PL'
+CAREER = 'CA'
+EDUCATION = 'ED'
+PSYCHOLOGY = 'PS'
+COUNSELLING_CHOICES = (
+    (PLACEMENT, 'Placement'),
+    (CAREER, 'Career'),
+    (EDUCATION, 'Education'),
+    (PSYCHOLOGY, 'Psychology'),
+    )
+
+URGENT = 'UR'
+WAIT = 'WA'
+STATUS_CHOICES = (
+    (URGENT, 'Urgent'),
+    (WAIT, 'Wait'),
+)
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=10)
@@ -26,9 +56,7 @@ class Profile(models.Model):
 
 
 class Book(models.Model):
-    YEAR_CHOICES = []
-    for r in range(1980, (datetime.datetime.now().year+1)):
-        YEAR_CHOICES.append((r,r))
+    
     user_book = models.ForeignKey(Profile,null=False)
 
     book_title = models.CharField(max_length=50)
@@ -39,12 +67,7 @@ class Book(models.Model):
     pub_year = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
     pub_name = models.CharField(max_length=50)
     price=models.CharField(max_length=5,null=True)
-    NEW='New'
-    OLD='Old'
-    CONDITION =(
-        (NEW, 'New'),
-        (OLD, 'Old'),
-    )
+    
     book_cond = models.CharField(max_length=3,
             choices=CONDITION,
         default=OLD,)
@@ -79,27 +102,13 @@ class Counselling(models.Model):
 	college = models.CharField(max_length=50)
 	phone_number = models.CharField(max_length=10)
 	branch = models.CharField(max_length=50)
-	PLACEMENT = 'PL'
-	CAREER = 'CA'
-	EDUCATION = 'ED'
-	PSYCHOLOGY = 'PS'
-	COUNSELLING_CHOICES = (
-	    (PLACEMENT, 'Placement'),
-	    (CAREER, 'Career'),
-	    (EDUCATION, 'Education'),
-	    (PSYCHOLOGY, 'Psychology'),
-	)
+	
 	c_choices = models.CharField(max_length=2,
 	        choices=COUNSELLING_CHOICES,
 	    default=CAREER,)
 	    
 	description = models.CharField(max_length=1000)
-	URGENT = 'UR'
-	WAIT = 'WA'
-	STATUS_CHOICES = (
-	    (URGENT, 'Urgent'),
-	    (WAIT, 'Wait'),
-	)
+	
 	status_c = models.CharField(max_length=2,
 	        choices=STATUS_CHOICES,
 	    default=WAIT,)
