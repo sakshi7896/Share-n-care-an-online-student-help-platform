@@ -56,6 +56,9 @@ class UserForm(forms.ModelForm):
 
 class BookPostForm(forms.ModelForm):
     image=forms.ImageField()
+    pub_year = forms.CharField(label='Publication Year')
+    pub_name = forms.CharField(label='Publication Name')
+    book_cond = forms.CharField(label='Book Condition')
     class Meta:
         model=Book
         fields=('book_title','subject','author','pub_year','pub_name','price','book_cond','image','negotiable')
