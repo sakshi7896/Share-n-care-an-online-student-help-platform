@@ -77,7 +77,7 @@ class CounsellingForm(forms.ModelForm):
         model=Counselling
         fields=('name1','email','college','phone_number','branch','c_choices','description','status_c')
 
-        fields=('book_title','subject','author','pub_year','pub_name','price','book_cond','image','b_type','negotiable')
+    
 		
 class BookDonateForm(forms.ModelForm):
     image=forms.ImageField()
