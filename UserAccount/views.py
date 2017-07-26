@@ -248,7 +248,7 @@ def recent(request):
     #results=Book.objects.all()
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(results)
-    print results
+    #print results
     posts_serialized = serializers.serialize('json', results)
     #pp.pprint(posts_serialized)
     return JsonResponse(posts_serialized, safe=False) 
