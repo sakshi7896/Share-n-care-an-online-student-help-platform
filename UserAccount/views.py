@@ -24,6 +24,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth import update_session_auth_hash
 
 
+
 def index(request):
     return render(request, 'index.html')
 
@@ -45,6 +46,7 @@ def login_user(request):
             if user.is_active:
                 login(request,user)
                 request.session['id'] = user.id
+
                 return render(request, 'UserAccount/home.html')
             else:
                 return HttpResponse("Inactive User")
@@ -99,6 +101,7 @@ def search_book(request):
     if request.method == "POST":
         q = request.POST['query']
         option = request.POST['option']
+
         if( q is None or q==""):
             return render(request, 'UserAccount/notfound.html')
         if(option=='Name'):
@@ -128,6 +131,7 @@ def new_book_post(request):
         form=BookPostForm(request.POST,request.FILES)
         if form.is_valid():
             book = Book()
+
             user = User.objects.get(id=request.session['id'])
             profile = Profile.objects.get(user=user)
             book.user_book=profile
@@ -141,6 +145,7 @@ def new_book_post(request):
             book.negotiable = request.POST["negotiable"]
             book.price = request.POST["price"]
             book.b_type = 'S'
+
             book.save()
             return HttpResponse('New book post has been added')
         else:
@@ -155,6 +160,7 @@ def donate_book_post(request):
         form=BookDonateForm(request.POST,request.FILES)
         if form.is_valid():
             book = Book()
+
             user = User.objects.get(id=request.session['id'])
             profile = Profile.objects.get(user=user)
             book.user_book=profile
@@ -176,6 +182,7 @@ def donate_book_post(request):
 
     donateBookForm =BookDonateForm(None)
     return render(request, 'UserAccount/donatebookform.html', {'form' :donateBookForm})
+
 
 	
 def counselling_post(request):
@@ -276,7 +283,4 @@ def bookdetail(request):
         #print data
         return JsonResponse(data, safe=False)
        
-        
-    
 
-    

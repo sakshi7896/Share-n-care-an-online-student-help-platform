@@ -3,6 +3,7 @@ from django.contrib.auth.views import login,logout, password_reset, password_res
 from . import views
 
 
+
 urlpatterns = [
    
     url(r'^register',views.register,name='register'),
@@ -25,5 +26,3 @@ urlpatterns = [
 
 
 ]
-
-

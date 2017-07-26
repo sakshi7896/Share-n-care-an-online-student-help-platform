@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 import datetime
 from PIL import Image
+
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -29,6 +30,7 @@ class Book(models.Model):
     for r in range(1980, (datetime.datetime.now().year+1)):
         YEAR_CHOICES.append((r,r))
     user_book = models.ForeignKey(Profile,null=False)
+
     book_title = models.CharField(max_length=50)
     subject = models.CharField(max_length=50)
     author = models.CharField(max_length=50)
@@ -47,7 +49,9 @@ class Book(models.Model):
             choices=CONDITION,
         default=OLD,)
     
+
     book_pic=models.ImageField(upload_to='BookImages',blank=True)
+
     YES='Y'
     NO='N'
     NEGOTIABILITY =(
@@ -99,6 +103,7 @@ class Counselling(models.Model):
 	status_c = models.CharField(max_length=2,
 	        choices=STATUS_CHOICES,
 	    default=WAIT,)
+
 		
     
     
