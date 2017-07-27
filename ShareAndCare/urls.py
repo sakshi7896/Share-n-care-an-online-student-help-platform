@@ -23,6 +23,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^UserAccount/', include('UserAccount.urls')),
-    url(r'^$',views.index,name='index'),
+    url(r'^$',views.home,name='home'),
 
 ]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
