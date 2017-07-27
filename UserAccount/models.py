@@ -87,8 +87,8 @@ class Book(models.Model):
         (SELL,'Sell'),
         (DONATE,'Donate'),
         )
-    b_type=models.CharField(max_length=1,choices=Type,default=SELL)
-    negotiable = models.CharField(max_length=3,
+    b_type=models.CharField(max_length=10,choices=Type,default=SELL)
+    negotiable = models.CharField(max_length=10,
             choices=NEGOTIABILITY,
         default=NO,)
     created_time=models.DateTimeField(auto_now_add = True)
