@@ -76,7 +76,7 @@ def register(request):
             newUser.save()
             subject = 'Registration Successful- Share And Care'
 
-            message = 'Greetings! Ypu have been successfully registered on Share And Care - An Online Student Help Platform. We are very happy to welcome you on BOARD with us!'
+            message = 'Greetings! You have been successfully registered on Share And Care - An Online Student Help Platform. Now you can easily find second hand books online without going anywhere by just visiting our website. '
             from_email = 'shareadcare@gmail.com'
             email_msg="Subject: {} \n\n{}".format(subject,message)
             smtp = smtplib.SMTP('smtp.gmail.com',587)
