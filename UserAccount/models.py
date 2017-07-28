@@ -94,7 +94,7 @@ class Book(models.Model):
     created_time=models.DateTimeField(auto_now_add = True)
 
 class Counselling(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	#user = models.OneToOneField(User, on_delete=models.CASCADE)
 		
 		#name = models.CharField(max_length=50)
 	name1 = models.CharField(max_length=50)

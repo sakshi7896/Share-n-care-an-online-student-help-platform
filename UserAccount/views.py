@@ -194,7 +194,7 @@ def counselling_post(request):
         form=CounsellingForm(request.POST,request.FILES)
         if form.is_valid():
             counselling = Counselling()
-            user = User.objects.get(id=request.session['id'])
+            #user = User.objects.get(id=request.session['id'])
             counselling.name1 = request.POST["name1"]
             counselling.email = request.POST["email"]
             counselling.college = request.POST["college"]
