@@ -129,6 +129,8 @@ def search_book(request):
             
 
 def new_book_post(request):
+    if not request.user.is_authenticated:
+        return render(request, 'UserAccount/login.html')
     if request.method=='POST':
         form=BookPostForm(request.POST,request.FILES)
         if form.is_valid():
@@ -266,9 +268,7 @@ def allposts(request):
 
 
 def bookdetail(request):
-    
-    if not request.user.is_authenticated:
-        return render(request, 'UserAccount/login.html')
+
     if request.method == "POST":
         #name = request.GET.get('name', '')
         pk=request.POST.get('pk', '')
