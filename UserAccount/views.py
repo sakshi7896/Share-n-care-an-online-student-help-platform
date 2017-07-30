@@ -160,6 +160,8 @@ def new_book_post(request):
     return render(request, 'UserAccount/bookform.html', {'form' :BookForm})
 	
 def donate_book_post(request):
+    if not request.user.is_authenticated:
+        return render(request, 'UserAccount/login.html')
     if request.method=='POST':
         form=BookDonateForm(request.POST,request.FILES)
         if form.is_valid():
